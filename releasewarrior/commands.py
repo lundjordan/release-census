@@ -284,8 +284,8 @@ class Postmortem(Command):
                 "version": release['version'],
                 "product": release['product'],
                 "date": release['date'],
+                "builds": [],
             }
-            postmortem_release["builds"] = []
             for build in release["builds"]:
                 postmortem_release["builds"].append({
                     "buildnum": build["buildnum"],
