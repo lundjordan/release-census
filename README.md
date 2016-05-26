@@ -54,7 +54,7 @@ what happens:
 
 usage: `release update $PRODUCT $BRANCH $VERSION --$UPD`
 
-example: `elease update firefox beta 18.0b3 --graphid 1234567 --shipit --issue "win64 l10n hg timeout, retriggered"`
+example: `release update firefox beta 18.0b3 --graphid 1234567 --shipit --issue "win64 l10n hg timeout, retriggered"`
 
 what happens:
 
