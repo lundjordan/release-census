@@ -11,6 +11,7 @@ setup(
     },
     install_requires=[
         'gitpython',
+        'jinja2',
     ],
     classifiers=[
         "Programming Language :: Python",
