@@ -39,7 +39,10 @@ def get_incomplete_releases():
     incomplete_releases = {}
     for abs_release_file, release_data in get_current_releases().items():
         if not all(release_data["builds"][-1]["human_tasks"].values()):
-            # this release is complete!
+            if release_data["builds"][-1].get("aborted"):
+                # Skip abandoned versions
+                continue
+            # this release is not complete!
             incomplete_releases[abs_release_file] = release_data
     return incomplete_releases
 
