@@ -164,6 +164,12 @@ what happens:
 
 if commands scare you and you want full control, you could even update the data manually, update a wiki manually, and just commit the changes yourself.
 
+
+## tracking special requirements for upcoming releases
+
+Sometimes you might need to have special requirements or steps for a future release. Since they are one offs, you don't want to add them to the templates.
+The solution is to add upcoming releases to the releases/FUTURE/ dir. See [future release support](releases/FUTURE/README.md) for more details.
+
 ## hand waving
 
 * releasewarrior only knows about the `origin` remote (whatever that points to in your local copy's .git/config. It also doesn't have knowledge of any branches so best stay on `master`.
