@@ -14,7 +14,8 @@ from releasewarrior.helpers import get_remaining_tasks_ordered
 from releasewarrior.helpers import get_update_data, data_unchanged, get_complete_releases
 from releasewarrior.helpers import get_incomplete_releases
 from releasewarrior.helpers import convert_bugs_to_links
-from releasewarrior.config import REPO_PATH, RELEASES_PATH, TEMPLATES_PATH, ARCHIVED_RELEASES_PATH
+from releasewarrior.config import REPO_PATH, RELEASES_PATH, TEMPLATES_PATH, ARCHIVED_RELEASES_PATH, \
+    FUTURE_RELEASES_PATH
 from releasewarrior.config import DATA_TEMPLATES, WIKI_TEMPLATES, POSTMORTEMS_PATH
 
 logger = logging.getLogger('releasewarrior')
@@ -104,6 +105,9 @@ class CreateRelease(Command):
         self.abs_data_file = os.path.join(
             RELEASES_PATH, "{}-{}-{}.json".format(self.product, self.branch, self.version)
         )
+        self.abs_future_data_file = os.path.join(
+            FUTURE_RELEASES_PATH, "{}-{}-{}.json".format(self.product, self.branch, self.version)
+        )
         self.abs_wiki_file = os.path.join(
             RELEASES_PATH, "{}-{}-{}.md".format(self.product, self.branch, self.version)
         )
@@ -123,6 +127,14 @@ class CreateRelease(Command):
         logger.info("adding custom initial data: version and date")
         data["version"] = self.version
         data["date"] = datetime.date.today().strftime("%Y-%m-%d")
+
+        if os.path.exists(self.abs_future_data_file):
+            logger.info("adding custom initial issues data from FUTURE/ file")
+            with open(self.abs_future_data_file) as future_data_file:
+                data["builds"][0]["issues"] = json.load(future_data_file)["issues"]
+
+            logger.info("removing FUTURE/ data file: {}".format(self.abs_future_data_file))
+            self.repo.index.remove([self.abs_future_data_file])
 
         return data
 
