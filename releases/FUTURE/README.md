@@ -32,4 +32,5 @@ If found, the issues will be combined with the standard template as a 'one off' 
 
 1. pollute the releases/ dir with future releases
 2. give misleading start dates for releases
+3. not risk pre-defining md and json files for upcoming releases that deviate from template equivalents that have since then changed
 

@@ -1,0 +1,5 @@
+{
+  "issues": [
+    "SPECIAL REQUIREMENT: [block non-SSE2 Windows updates](https://bugzilla.mozilla.org/show_bug.cgi?id=1284905)"
+  ]
+}
