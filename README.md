@@ -18,8 +18,9 @@ cd releasewarrior
 install it in your virtual python environment
 ```
 mkvirtualenv --python=/path/to/python3 releasewarrior
-python setup.py install
+python setup.py develop
 ```
+Using the develop target ensures that you get code updates along with data when pulling in changes.
 
 ## Overview Flow
 

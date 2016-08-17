@@ -66,13 +66,13 @@ python src/tctalker/tctalker.py --conf config.json <action> <task-id>
 
 ### how
 * Desktop Firefox Betas
-    * email release-drivers@mozilla.com with subject only email `[desktop] Firefox Beta $version updates are available on the beta-cdntest channel now <EOM>`
+    * email release-drivers@mozilla.org with subject only email `[desktop] Firefox Beta $version updates are available on the beta-cdntest channel now <EOM>`
 * Desktop Firefox Release-Candidates
-    * email release-drivers@mozilla.com with subject only email `[desktop] Firefox RC Release $version updates are available on the beta-cdntest channel now <EOM>`
+    * email release-drivers@mozilla.org with subject only email `[desktop] Firefox RC Release $version updates are available on the beta-cdntest channel now <EOM>`
 * Desktop Firefox Releases (dot releases)
-    * email release-drivers@mozilla.com with subject only email `[desktop] Firefox Release $version updates are available on the release-localtest channel now <EOM>`
+    * email release-drivers@mozilla.org with subject only email `[desktop] Firefox Release $version updates are available on the release-localtest channel now <EOM>`
 * Desktop Firefox ESRs
-    * email release-drivers@mozilla.com with subject only email `[desktop] Firefox ESR $version updates are available on the esr-localtest channel now <EOM>`
+    * email release-drivers@mozilla.org with subject only email `[desktop] Firefox ESR $version updates are available on the esr-localtest channel now <EOM>`
 
 
 ## 2. push to releases dir (mirrors)
