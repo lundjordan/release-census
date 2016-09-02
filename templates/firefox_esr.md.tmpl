@@ -7,7 +7,7 @@
 
 ### ESR Graph 1
 {% if build['graphid'] %}
-[task graph](https://tools.taskcluster.net/task-group-inspector/#{{ build['graphid'] }})
+[task group](https://tools.taskcluster.net/push-inspector/#/{{ build['graphid'] }})
 {% else %}
 task graph url: unknown
 {% endif %}
@@ -17,7 +17,7 @@ task graph url: unknown
 
 ### ESR Graph 2
 {% if build['graphid_2'] %}
-[task graph](https://tools.taskcluster.net/task-group-inspector/#{{ build['graphid_2'] }})
+[task group](https://tools.taskcluster.net/push-inspector/#/{{ build['graphid_2'] }})
 {% else %}
 task graph url: unknown
 {% endif %}
