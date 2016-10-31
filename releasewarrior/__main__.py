@@ -18,7 +18,7 @@ def setup_logging():
     console = logging.StreamHandler()
     # flip this to INFO once done testing
     console.setLevel(logging.DEBUG)
-    console.setFormatter(logging.Formatter('%(name)-12s: %(levelname)-8s %(message)s'))
+    console.setFormatter(logging.Formatter('%(message)s'))
 
     # add console logging to root logger
     logging.getLogger('').addHandler(console)
