@@ -359,9 +359,12 @@ class Status(Command):
 
         for release in self.incomplete_releases.values():
             remaining_tasks_ordered = get_remaining_tasks_ordered(release["builds"][-1]["human_tasks"])
-            issues = [issue for issue in release["builds"][-1]["issues"]]
+            curr_build = release["builds"][-1]
+            issues = [issue for issue in curr_build["issues"]]
 
             logger.info("RELEASE IN FLIGHT: %s %s %s", release["product"], release["version"], release["date"])
+            if "graphid" in curr_build:
+                logger.info("Graph: https://tools.taskcluster.net/push-inspector/#/%s ", curr_build["graphid"])
             logger.info("\tincomplete human tasks:")
             for task in remaining_tasks_ordered:
                 logger.info("\t\t* %s", task)
