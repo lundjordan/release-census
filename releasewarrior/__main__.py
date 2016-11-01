@@ -19,6 +19,7 @@ def setup_logging():
     # flip this to INFO once done testing
     console.setLevel(logging.DEBUG)
     console.setFormatter(logging.Formatter('%(message)s'))
+    logging.getLogger('git').setLevel(logging.WARNING)
 
     # add console logging to root logger
     logging.getLogger('').addHandler(console)

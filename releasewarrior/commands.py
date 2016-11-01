@@ -362,7 +362,9 @@ class Status(Command):
             curr_build = release["builds"][-1]
             issues = [issue for issue in curr_build["issues"]]
 
-            logger.info("RELEASE IN FLIGHT: %s %s %s", release["product"], release["version"], release["date"])
+            logger.info("RELEASE IN FLIGHT: %s %s %s build%s",
+                release["product"], release["version"], curr_build["buildnum"],
+                release["date"])
             if "graphid" in curr_build:
                 logger.info("Graph: https://tools.taskcluster.net/push-inspector/#/%s ", curr_build["graphid"])
             logger.info("\tincomplete human tasks:")
