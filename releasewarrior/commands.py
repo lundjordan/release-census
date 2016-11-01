@@ -362,6 +362,7 @@ class Status(Command):
             curr_build = release["builds"][-1]
             issues = [issue for issue in curr_build["issues"]]
 
+            logger.info("=" * 79)
             logger.info("RELEASE IN FLIGHT: %s %s build%s %s",
                 release["product"], release["version"], curr_build["buildnum"],
                 release["date"])
