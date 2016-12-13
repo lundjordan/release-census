@@ -105,6 +105,11 @@ def parse_args():
     parser_postmortem.add_argument('date', type=lambda x: datetime.datetime.strptime(x, "%Y-%m-%d"),
                                    help='the date of the upcoming postmortem meeting')
 
+    # status options
+    parser_status.add_argument(
+        'pattern', nargs='?', metavar='REGEX',
+         help='Filter releases using a regex. The search is performed in "{product} {version}"')
+
     return parser.parse_args()
 
 

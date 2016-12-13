@@ -4,6 +4,7 @@ import sys
 import logging
 import json
 import datetime
+import re
 from copy import deepcopy
 
 from git import Repo
@@ -343,6 +344,7 @@ class Postmortem(Command):
 class Status(Command):
 
     def __init__(self, args):
+        self.pattern = args.pattern
         self.incomplete_releases = get_incomplete_releases()
         self.pre_run_check()
 
@@ -358,6 +360,12 @@ class Status(Command):
     def run(self):
 
         for release in self.incomplete_releases.values():
+            if self.pattern:
+                if not re.search(
+                        self.pattern,
+                        "{} {}".format(release["product"], release["version"]),
+                        flags=re.IGNORECASE):
+                    continue
             remaining_tasks_ordered = get_remaining_tasks_ordered(release["builds"][-1]["human_tasks"])
             curr_build = release["builds"][-1]
             issues = [issue for issue in curr_build["issues"]]
