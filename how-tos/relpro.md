@@ -59,7 +59,7 @@ python src/tctalker/tctalker.py --conf config.json <action> <task-id>
 * Desktop Firefox Release-Candidates
     * context: RCs are m-r releases that are served to beta uses prior to release channel users. RCs use `beta-cdntest` and `release-cdntest` for QA.
     * `beta-cdntest` serves updates from the candidates/ dir. We should notify drivers once all artifacts are available there. we don't worry about `release-cdntest` because that is not automatic in automation
-        * look in taskgraph graph 1 for task with name `mozilla-beta beta final verification`
+        * look in taskgraph graph 1 for task with name `mozilla-release beta final verification`
         * once this task has run successfully, that means 1) the release has finished uploading all artifacts to candidates dir 2) and verified beta-cdntest is serving the release from there
 * Desktop Firefox Releases (dot releases)
     * `release-localtest` serves updates from the candidates/ dir. We should notify drivers once all artifacts are available there. Again, release-cdntest depends on a human decision (not automatic) in automation so no email required.
