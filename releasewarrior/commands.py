@@ -21,6 +21,8 @@ from releasewarrior.config import DATA_TEMPLATES, WIKI_TEMPLATES, POSTMORTEMS_PA
 
 logger = logging.getLogger('releasewarrior')
 
+_UPSTREAM_REPO_URL = re.compile(r'(https://|git@)github\.com[:/]mozilla/releasewarrior(\.git)?')
+_SIMPLIFIED_REPO_URL = 'github.com/mozilla/releasewarrior' # Used only to simplify what's logged out
 
 class Command(metaclass=abc.ABCMeta):
     repo = Repo(REPO_PATH)
@@ -40,20 +42,37 @@ class Command(metaclass=abc.ABCMeta):
         if self.repo.is_dirty():
             logger.warning("releasewarrior repo dirty")
 
+        upstream = self._find_upstream_repo()
+        logger.info('fetching new csets from {}/master'.format(upstream))
+
         # TODO - we should allow csets to exist locally that are not on remote.
-        logger.info("ensuring releasewarrior repo is up to date and in sync with origin")
-        origin = self.repo.remotes.origin
-        logger.info("fetching new csets from origin to origin/master")
-        origin.fetch()
-        commits_behind = list(self.repo.iter_commits('master..origin/master'))
+        logger.info("ensuring releasewarrior repo is up to date and in sync with {}".format(upstream))
+
+        upstream.fetch()
+        commits_behind = list(self.repo.iter_commits('master..{}/master'.format(upstream)))
         if commits_behind:
-            logger.error("local master is behind origin/master. aborting run to be safe.")
+            logger.error('local master is behind {}/master. aborting run to be safe.'.format(upstream))
             sys.exit(1)
 
         # making sure release directories exist
         for directory in [RELEASES_PATH, ARCHIVED_RELEASES_PATH, POSTMORTEMS_PATH]:
             if not os.path.exists(directory):
                 os.makedirs(directory)
+
+    def _find_upstream_repo(self):
+        upstream_repos = [
+            repo for repo in self.repo.remotes if _UPSTREAM_REPO_URL.match(repo.url) is not None
+        ]
+        number_of_repos_found = len(upstream_repos)
+        if number_of_repos_found == 0:
+            raise Exception('No remote repository pointed to "{}" found!'.format(_SIMPLIFIED_REPO_URL))
+        elif number_of_repos_found > 1:
+            raise Exception('More than one repository is pointed to "{}". Found repos: {}'.format(_SIMPLIFIED_REPO_URL, upstream_repos))
+
+        correct_repo = upstream_repos[0]
+        logger.debug('{} is detected as being the remote repository pointed to "{}"'.format(correct_repo, _SIMPLIFIED_REPO_URL))
+        return correct_repo
+
 
     @abc.abstractmethod
     def generate_data(self):
