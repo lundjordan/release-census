@@ -65,7 +65,7 @@ python src/tctalker/tctalker.py --conf config.json <action> <task-id>
     * `release-localtest` serves updates from the candidates/ dir. We should notify drivers once all artifacts are available there. Again, release-cdntest depends on a human decision (not automatic) in automation so no email required.
         * look in taskgraph graph for task with name `firefox mozilla-release push to releases human decision task`.
         * this task should be the only task left that is blocking the graph (aside from the post release human task)
-        * all other en-us, l10n, partial, and partner artifact generating tasks should be finished.
+        * all other en-us, l10n, partial, and partner artifact generating tasks should be finished. However, in emergency situations, the partner artifacts should not block sending out the email should the `firefox mozilla-release checksums builder` ran succcessfully.
 * Desktop Firefox ESRs
     * `esr-localtest` serves updates from the candidates/ dir. We should notify drivers once all artifacts are available there. Again, esr-cdntest depends on a human decision (not automatic) in automation so no email required.
         * look in taskgraph graph for task with name `firefox mozilla-esr push to releases human decision task`.
