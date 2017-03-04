@@ -43,4 +43,12 @@ taskGroupId: $ACTUAL_TASKGROUP_ID
 
 In the eventuality of a failure of pushapk_scriptworker, there are [instructions to manually publish APKs](https://github.com/mozilla-releng/mozapkpublisher#what-to-do-when-pushapk_scriptworker-doesnt-work).
 
+#### manually run l10n-bumper
+```
+ssh buildbot-master01.bb.releng.use1.mozilla.com
+sudo su - cltbld
+cd /builds/l10n-bumper
+/tools/python27/bin/python2.7 mozharness/scripts/l10n_bumper.py -c l10n_bumper/mozilla-beta.py
+```
+
 ## Mark release as shipped in ship-it
