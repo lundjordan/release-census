@@ -6,16 +6,15 @@ These steps are meant to be specifically for Fennec-53.0b1.
 
 1. noop ship-it
 2. skip source
-3. kick off fennec_candidates hook
-4. hack candidates to release script, run manually
-5. run pushapk manually
-6. mark release as shipped in ship-it
+3. start off the Fenenc graph
+4. run pushapk manually
+5. mark release as shipped in ship-it
 
 # Detailed descriptions
 
 ## Noop ship-it
 
-Nothing to do here but notice there should be a Fennec build under [this section](https://ship-it.mozilla.org/releases.html#reviewed-tab)
+Nothing to do here but notice there should be a Fennec build under [this section](https://ship-it.mozilla.org/releases.html#reviewed-tab).
 Grab the `builduild number`, the `revision` and the `version` from the Ship-it entry.
 
 ## Skip source
@@ -24,11 +23,11 @@ Nothing to do here for the moment. The source builder needs to be fixed so for t
 
 ## Start off the Fenenc graph
 
-The way this works is we trigger a graph that contains most of the builders (sans source builder, checksums and others which are still under development).
-One of the tasks is a decision task which will at its turn generate another graph for which all the tasks
+The way this works is by triggering a graph that contains most of the builders (sans source builder, checksums and others which are still under development).
+One of the tasks is a `decision task` which will, at its turn, generate another graph for which all the tasks
 will have their TaskGroupId set to the decision task. That is the nightly graph that builds, signs and beetmoves stuff to S3.
 
-1. Follow the following set of instructions:
+* Follow the following set of instructions:
 
 ```bash
 $ ssh `whoami`@buildbot-master85.bb.releng.scl3.mozilla.com  # host we release-runner and you generate/submit new release promotion graphs
@@ -44,8 +43,8 @@ $ python releasetasks_graph_gen.py --release-runner-ini=../../../release-runner.
 $ python releasetasks_graph_gen.py --release-runner-ini=../../../release-runner.ini --branch-and-product-config=/home/cltbld/releasetasks/releasetasks/release_configs/prod_mozilla-beta_fennec_full_graph.yml  --version TODO --build-number TODO --mozilla-revision TODO
 ```
 
-2. The resulted graphid should be tracked in releasewarrior
-3. Once the decision-task generated graph is green and all artifacts are under [candidates](http://archive.mozilla.org/pub/mobile/candidates/) for that given version, send a heads-up email like [this](https://github.com/mozilla/releasewarrior/blob/master/how-tos/relpro.md#why)
+* The resulted graphid should be tracked in releasewarrior
+* Once the decision-task generated graph is green and all artifacts are under [candidates](http://archive.mozilla.org/pub/mobile/candidates/) for that given version, send a heads-up email like [this](https://github.com/mozilla/releasewarrior/blob/master/how-tos/relpro.md#why)
 to release drivers specifying the updates are now available on the `beta-localtest` channel.
 
 ## Run pushapk manually
