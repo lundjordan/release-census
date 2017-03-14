@@ -47,6 +47,14 @@ $ python releasetasks_graph_gen.py --release-runner-ini=../../../release-runner.
 * Once the decision-task generated graph is green and all artifacts are under [candidates](http://archive.mozilla.org/pub/mobile/candidates/) for that given version, send a heads-up email like [this](https://github.com/mozilla/releasewarrior/blob/master/how-tos/relpro.md#why)
 to release drivers specifying the updates are now available on the `beta-localtest` channel.
 
+** Disclaimer **
+
+If for some reason any of the steps above fail, we still have a fall-back option by using the manual hook to trigger the nightly graph that will ensure the build/signing/beetmoving artifacts to S3.
+The hook that triggers the Fennec graph is [here](https://tools.taskcluster.net/hooks/#project-releng/candidates-fennec-beta).
+* alter GECKO_HEAD_REF, GECKO_HEAD_REV to corresponding changeset from Ship-it
+* bump the buildnumber to correspond to Ship-it
+* trigger hook!
+
 ## Run pushapk manually
 
 ### Use pushapk_scriptworker
