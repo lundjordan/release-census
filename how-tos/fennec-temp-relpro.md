@@ -55,6 +55,9 @@ The hook that triggers the Fennec graph is [here](https://tools.taskcluster.net/
 * bump the buildnumber to correspond to Ship-it
 * trigger hook!
 
+If this is the solution you end up doing - we will also need the following:
+* trigger another subgraph containing all the steps after push-to-releases, included. This can be done similarly with the above commands via releasetasks, but toggling to `False` all variables from [here](https://github.com/mozilla/releasetasks/blob/master/releasetasks/release_configs/prod_mozilla-beta_fennec_full_graph.yml)
+
 ## Run pushapk manually
 
 ### Use pushapk_scriptworker
