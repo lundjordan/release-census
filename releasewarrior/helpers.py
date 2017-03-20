@@ -4,7 +4,8 @@ import logging
 import re
 import sys
 
-from releasewarrior.config import RELEASES_PATH, ARCHIVED_RELEASES_PATH
+from releasewarrior.config import ARCHIVED_RELEASES_PATH, KNOWN_CHECKBOXES, \
+    ORDERED_HUMAN_TASKS, RELEASES_PATH
 
 logger = logging.getLogger('releasewarrior')
 
@@ -64,6 +65,16 @@ def ensure_branch_and_version_are_valid(branch, version):
         sys.exit(1)
 
 
+def _get_checkbox_value(nick, args, special_arg=None):
+    if special_arg:
+        return (nick, True)
+    aliases = [item for sublist in KNOWN_CHECKBOXES for item in sublist if nick == sublist[0]]
+    for alias in aliases:
+        if alias in args.checkboxes:
+            return (nick, True)
+    return (nick, False)
+
+
 def get_update_data(args):
     build_data = [
         ("graphid", args.graphid),
@@ -72,12 +83,12 @@ def get_update_data(args):
         ("issues", args.issues),
     ]
     human_tasks_data = [
-        ("submitted_shipit", args.submitted_shipit),
-        ("emailed_localtest", args.emailed_localtest),
-        ("emailed_cdntest", args.emailed_cdntest),
-        ("pushed_mirrors", args.pushed_mirrors),
-        ("published_release", args.published_release),
-        ("published_rc_to_beta", args.published_rc_to_beta),
+        _get_checkbox_value("submitted_shipit", args, args.submitted_shipit),
+        _get_checkbox_value("emailed_localtest", args, args.emailed_localtest),
+        _get_checkbox_value("emailed_cdntest", args, args.emailed_cdntest),
+        _get_checkbox_value("pushed_mirrors", args, args.pushed_mirrors),
+        _get_checkbox_value("published_release", args, args.published_release),
+        _get_checkbox_value("published_rc_to_beta", args, args.published_rc_to_beta),
     ]
     update_data = {"human_tasks": {}}
     for key, value in build_data:
@@ -126,14 +137,6 @@ def release_exists(data_file, ignore_archive=False):
 
 
 def get_remaining_tasks_ordered(release_human_tasks):
-    ORDERED_HUMAN_TASKS = [
-        'submitted_shipit',
-        'emailed_localtest',
-        'emailed_cdntest',
-        'pushed_mirrors',
-        'published_release',
-        'published_rc_to_beta',
-    ]
     # TODO - human_tasks is a dict so we lose order. find a better way to put back in order
     # this is a hack because ORDERED_HUMAN_TASKS is hardcoded and may get out of date
     remaining_tasks = [task for task, done in release_human_tasks.items() if not done]

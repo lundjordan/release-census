@@ -48,3 +48,17 @@ DATA_TEMPLATES = {
         'esr': os.path.join(TEMPLATES_PATH, 'thunderbird_esr.json.tmpl'),
     }
 }
+
+
+# The official json nick, followed by human-friendly alias(es)
+# These should be specified in order.
+KNOWN_CHECKBOXES = (
+    ('submitted_shipit', 'shipit'),
+    ('emailed_localtest', 'localtest'),
+    ('emailed_cdntest', 'cdntest'),
+    ('pushed_mirrors', 'mirrors'),
+    ('published_release', 'publish'),
+    ('published_rc_to_beta', 'beta'),
+)
+ALL_CHECKBOXES = tuple([item for sublist in KNOWN_CHECKBOXES for item in sublist])
+ORDERED_HUMAN_TASKS = tuple([sublist[0] for sublist in KNOWN_CHECKBOXES])
