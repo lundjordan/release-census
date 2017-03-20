@@ -1,7 +1,20 @@
 import os
 
-# REPO_PATH == abs path to dir that contains .git
-REPO_PATH = os.getcwd()  # overwrite this to use `releaese` commands outside of base repo dir
+SEARCH_PATH = (
+    os.path.abspath(os.path.join(os.path.realpath(__file__), '..', '..')),
+    os.getcwd(),
+)
+
+def find_repo_path(search_path):
+    for path in search_path:
+        if os.path.exists(os.path.join(path, '.git')):
+            with open(os.path.join(path, '.git', 'config')) as fh:
+                if 'mozilla/releasewarrior' in fh.read():
+                    return path
+    else:
+        raise Exception("Can't find releasewarrior.git in {}!".format(search_path))
+
+REPO_PATH = find_repo_path(SEARCH_PATH)  # abs path to dir that contains .git
 TEMPLATES_PATH = os.path.join(REPO_PATH, 'templates')
 RELEASES_PATH = os.path.join(REPO_PATH, 'releases')
 FUTURE_RELEASES_PATH = os.path.join(REPO_PATH, 'releases', 'FUTURE')
