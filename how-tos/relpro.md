@@ -173,10 +173,10 @@ $ python releasetasks_graph_gen.py --release-runner-ini=../../../release-runner.
     * Wait for email from RelMan or QE with subject request like `please push Firefox 46.0 to the beta channel`
     * sanity check all beta update verify and the beta final verify task has completed successfully in graph 1
 * Desktop Firefox Release and Release-Candidate (RC and dot releases both push to release channel)
-    * Wait for email from RelMan or QE with subject request like `please push Firefox 46.0 to the release channel`
+    * Wait for email from RelMan with subject request like `please push Firefox 46.0 to the release channel`
     * sanity check all release update verify tasks from graph 1 and the release final verify task has completed successfully from graph 2
 * Desktop Firefox ESRs
-    * Wait for email from RelMan or QE with subject request like `please push Firefox 45.2.0esr to the esr channel`
+    * Wait for email from RelMan with subject request like `please push Firefox 45.2.0esr to the esr channel`
     * sanity check all release update verify tasks from graph 1 and the release final verify task has completed successfully from graph 2
 
 ### how
