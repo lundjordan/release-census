@@ -70,7 +70,7 @@ def _get_checkbox_value(nick, args, special_arg=None):
         return (nick, True)
     aliases = [item for sublist in KNOWN_CHECKBOXES for item in sublist if nick == sublist[0]]
     for alias in aliases:
-        if alias in args.checkboxes:
+        if args.checkboxes and alias in args.checkboxes:
             return (nick, True)
     return (nick, False)
 
