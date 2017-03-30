@@ -7,7 +7,7 @@ These steps are meant to be specifically for Fennec-53.0b1.
 1. noop ship-it
 2. skip source
 3. start off the Fenenc graph
-4. run pushapk manually
+4. steps after QA signed off
 5. mark release as shipped in ship-it
 
 # Detailed descriptions
@@ -58,20 +58,11 @@ The hook that triggers the Fennec graph is [here](https://tools.taskcluster.net/
 *If this is the solution you end up doing - we will also need the following*:
 * trigger another subgraph containing all the steps after push-to-releases, included. This can be done similarly with the above commands via releasetasks, but toggling to `False` all variables from [here](https://github.com/mozilla/releasetasks/blob/master/releasetasks/release_configs/prod_mozilla-beta_fennec_full_graph.yml)
 
-## Run pushapk manually
+## Steps after QA signed off
 
-### Use pushapk_scriptworker
+There are 2 "human decision" (aka "breakpoint") tasks to resolve *at the same time* (the order doesn't matter, though). One is in the first graph (the one kicked off by releasetasks), it's called `fennec mozilla-beta push to releases human decision task`. The other is in the Chain Of Trust graph, look for `android-push-apk-breakpoint/opt`.
 
-1. Fetch the [one of the last completed task](https://queue.taskcluster.net/v1/task/N1Qa_WGmRbaAgjqZlpW--Q)
-1. Paste it onto [TC's task creator](https://tools.taskcluster.net/task-creator/)
-1. Modify the [fields that need to be changed](https://github.com/mozilla-releng/pushapkscript#taskjson):
-  * `payload` => `apks`, pick the ones from the signed tasks.
-  * change the `dependencies` to match the taskIds put in the payload.
-  * change `taskGroupId` to match the fennec graph
-  * Keep `dry_run` to `true`
-1. If everything passed, create second task with the same definition, but flip `dry_run` to `false`.
-
-### Fallback steps
+### PushApk: Fallback steps
 
 In the eventuality of a failure of pushapk_scriptworker, there are [instructions to manually publish APKs](https://github.com/mozilla-releng/mozapkpublisher#what-to-do-when-pushapk_scriptworker-doesnt-work).
 
@@ -82,5 +73,3 @@ sudo su - cltbld
 cd /builds/l10n-bumper
 /tools/python27/bin/python2.7 mozharness/scripts/l10n_bumper.py -c l10n_bumper/mozilla-beta.py
 ```
-
-## Mark release as shipped in ship-it
