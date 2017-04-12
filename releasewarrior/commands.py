@@ -296,6 +296,7 @@ class Postmortem(Command):
         self.abs_wiki_file = os.path.join(POSTMORTEMS_PATH, "{}.md".format(self.date))
         self.wiki_template_file = WIKI_TEMPLATES["postmortem"]
         self.completed_releases = get_complete_releases()
+        self.incomplete_releases = get_incomplete_releases()
         self.commit_msg = "updating postmortem. updated {} wiki".format(
             os.path.basename(self.abs_wiki_file)
         )
@@ -304,7 +305,8 @@ class Postmortem(Command):
 
     def generate_data(self):
         new_data = {
-            "releases": [],
+            "complete_releases": [],
+            "incomplete_releases": [],
             "date": self.date,
         }
 
@@ -314,7 +316,9 @@ class Postmortem(Command):
                 new_data.update(deepcopy(json.load(current_data_f)))
 
         logger.info("updating postmortem with recently completed releases.")
-        for release in self.completed_releases.values():
+        completed_releases = sorted(self.completed_releases.values(), key=lambda r: r["date"])
+        incomplete_releases = sorted(self.incomplete_releases.values(), key=lambda r: r["date"])
+        for release in completed_releases + incomplete_releases:
             postmortem_release = {
                 "version": release['version'],
                 "product": release['product'],
@@ -326,19 +330,20 @@ class Postmortem(Command):
                     "buildnum": build["buildnum"],
                     "issues": build["issues"],
                 })
-            new_data["releases"].append(postmortem_release)
-
-        # sort post mortem releases by date
-        new_data["releases"] = sorted(new_data["releases"], key=lambda r: r["date"])
+            if release in completed_releases:
+                new_data["complete_releases"].append(postmortem_release)
+            else:
+                new_data["incomplete_releases"].append(postmortem_release)
 
         return new_data
 
     def pre_run_check(self):
         super().pre_run_check()
 
-        if not self.completed_releases:
-            logger.error("no current releases found in %s that have all human tasks completed. "
-                         "Use the `update` command to complete current release's human_tasks.",
+        if not self.completed_releases and not self.incomplete_releases:
+            logger.error("no current releases found in %s. "
+                         "Use the `create` command to create releases; "
+                         "use the `update` complete current release's human_tasks.",
                          RELEASES_PATH)
             sys.exit(1)
 
