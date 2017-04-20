@@ -130,18 +130,19 @@ python mozharness-central/scripts/merge_day/gecko_migration.py -c merge_day/cent
 
 1. Do the same things as part 1, except you should land "patch 2" instead.
 
-### Merge aurora to beta
+### Merge central to beta
+
+:warning: Some command lines might not work as it, because this is the first time we perform this migration.
 
 It's almost identical to beta to release:
 
-1. [Close mozilla-aurora](https://mozilla-releng.net/treestatus/show/mozilla-aurora). Check "Remember this change to undo later".
 1. 
 ```sh
 # go to merge_day directory, created on day 1
-python mozharness-central/scripts/merge_day/gecko_migration.py -c merge_day/aurora_to_beta.py
+python mozharness-central/scripts/merge_day/gecko_migration.py -c merge_day/central_to_beta.py
 hg -R build/mozilla-beta diff # Validate it with someone else
-python mozharness-aurora/scripts/merge_day/gecko_migration.py \
-  -c selfserve/production.py -c merge_day/aurora_to_beta.py \
+python mozharness-central/scripts/merge_day/gecko_migration.py \
+  -c selfserve/production.py -c merge_day/central_to_beta.py \
   --create-virtualenv --commit-changes --push --trigger-builders
 ```
 1. run l10n-bumper against beta
@@ -152,20 +153,47 @@ cd /builds/l10n-bumper
 mozharness/scripts/l10n_bumper.py -c configs/l10n_bumper/mozilla-beta.py --ignore-closed-tree
 ```
 1. Verify changesets are visible on [hg pushlog](https://hg.mozilla.org/releases/mozilla-beta/pushloghtml) and [Treeherder]( https://treeherder.mozilla.org/#/jobs?repo=mozilla-beta). It may take a couple of minutes to appear.
-1. Tell sheriffs this particular migration is done
+1. Tell sheriffs this migration is done. They will trigger new nightly builds? ([jlorenzo] unsure of that part)
 
-### Merge central to aurora
+### Update wikis
 
-1. No need to close central.
 1. 
 ```sh
-python mozharness-central/scripts/merge_day/gecko_migration.py -c merge_day/central_to_aurora.py
-hg -R build/mozilla-aurora diff # Validate it with someone else
-scp cltbld@buildbot-master81.bb.releng.scl3.mozilla.com:/builds/buildbot/build_scheduler/master/BuildSlaves.py oauth.txt
-python mozharness-central/scripts/merge_day/gecko_migration.py \
-  -c balrog/production.py -c selfserve/production.py \
-  -c merge_day/central_to_aurora.py \
-  --create-virtualenv --commit-changes \
-  --push --trigger-builders
+wget https://hg.mozilla.org/build/tools/file/default/buildfarm/maintenance/update_merge_day_wiki.sh
+export WIKI_USERNAME=asasaki
+export WIKI_PASSWORD=*******
+NEW_ESR_VERSION=52  # Only if a new ESR comes up (for instance 52.0esr)
+./update_merge_day_wiki.sh # Or ./update_merge_day_wiki.sh -e $NEW_ESR_VERSION
 ```
-1. Verify changesets are visible on [hg pushlog](https://hg.mozilla.org/releases/mozilla-aurora/pushloghtml) and [Treeherder]( https://treeherder.mozilla.org/#/jobs?repo=mozilla-aurora). It may take a couple of minutes to appear.
+1. Check the new values:
+  * [NEXT_VERSION](https://wiki.mozilla.org/Template:Version/Gecko/release/next)
+  * [CENTRAL_VERSION](https://wiki.mozilla.org/Template:Version/Gecko/central/current)
+  * [BETA_VERSION](https://wiki.mozilla.org/Template:Version/Gecko/beta/current)
+  * [RELEASE_VERSION](https://wiki.mozilla.org/Template:Version/Gecko/release/current)
+  * [Next release date](https://wiki.mozilla.org/index.php?title=Template:NextReleaseDate). This updates
+    * [The next ship date](https://wiki.mozilla.org/index.php?title=Template:FIREFOX_SHIP_DATE)
+    * [The next merge date](https://wiki.mozilla.org/index.php?title=Template:FIREFOX_MERGE_DATE)
+    * [The current cycle](https://wiki.mozilla.org/index.php?title=Template:CURRENT_CYCLE)
+
+### Send merge completion email
+
+Reply to the "please merge m-c => m-b" email. CC `thunderbird-drivers@mozilla.org`. The content should be like:
+```
+gecko versions are now as follows:
+    m-c = 56
+    m-b = 55
+beta is still closed. Sheriffs may re-open when CI looks good
+central nightly builds have been triggered.
+Gecko version in bouncer for nightlies will be updated tomorrow
+Entries in the wiki have been also updated.
+```
+
+## Day 15 - Post-merge
+
+### Bump bouncer versions
+
+[jlorenzo] I haven't done this part in the previous merge. I guess we can just copy/paste https://wiki.mozilla.org/ReleaseEngineering/Merge_Duty/Steps#Bump_bouncer_entry_versions
+
+### Trim bouncer's Check Now list
+
+[jlorenzo] Same comment as just above
