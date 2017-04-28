@@ -50,16 +50,19 @@ hg commit
 hg push -r . review   # Ask for a review
 
 # Once review is passed, retag the following:
-hg tag -f -r . "FIREFOX_${TO_VERSION_UNDERSCORE}_RELEASE_RUNTIME"
-hg tag -f -r .^ "FIREFOX_${TO_VERSION_UNDERSCORE}_BUILD${TO_BUILD}_RUNTIME"
+hg tag -f -r . "FIREFOX_${TO_VERSION_UNDERSCORE}_RELEASE_RUNTIME" "FIREFOX_${TO_VERSION_UNDERSCORE}_BUILD${TO_BUILD}_RUNTIME"
 
-hg push -r .^^  # Actual changes
-hg push -r .^   # First tag
-hg push -r .    # Second tag
+hg push -r .^  # Actual changes
+hg push -r .    # Tags
 ```
 
-## 2. Generate taskgraph
+## 2. Update the balrog blobs and generate taskgraph
 
+1. Clone the current production blob and rename it to `*-prod`. Make the production rule to this new blob.
+1. Then, you need to make some changes on the blog you just copied, otherwise the update verify tests will fail.
+  1. Download the release blob make these changes: `["fileUrls"]["release-localtest"]["partials"].append("Firefox-${FROM_VERSION}-build${FROM_BUILD}": "http://archive.mozilla.org/pub/firefox/candidates/${TO_VERSION}-candidates/build${TO_BUILD}/update/%OS_FTP%/%LOCALE%/firefox-${FROM_VERSION}-${TO_VERSIONs}.partial.mar")`
+  1. Upload the new blob and make the release-localtest rule point to this new blob.
+1. 
 ```sh 
 ssh buildbot-master85.bb.releng.scl3.mozilla.com
 sudo su - ctlbld
@@ -78,18 +81,15 @@ python runme.py
 python runme.py
 ```
 
-## 3. Update balrog blobs and bouncers
+## 3. Update balrog blobs (one more time) and bouncers
 
-1. You need to make some changes on balrog, before the update verify tests will fail. Connect onto balrog and make this change:
-`["fileUrls"]["release-localtest"]["partials"].append("Firefox-${FROM_VERSION}-build${FROM_BUILD}": "http://archive.mozilla.org/pub/firefox/candidates/${TO_VERSION}-candidates/build${TO_BUILD}/update/%OS_FTP%/%LOCALE%/firefox-${FROM_VERSION}-${TO_VERSIONs}.partial.mar")`
-1. Now the taskgraph should pass.
 1. Manually add the bouncer entries, which means:
   1. Create a new product called `Firefox-${TO_VERSION}-Partial-${FROM_VERSION}`. Don't include the build numbers in the name. Build numbers are for `*-cdntest` channels, only. For instance: https://bounceradmin.mozilla.com/admin/mirror/product/6993/
   1. Create 1 location per platform for this new product. Ask for a review, because typos can happen. (Corrected) example: https://bounceradmin.mozilla.com/admin/mirror/location/?product__id__exact=6993
 1. Resolve the human decision of the graph.
 1. Wait for https://bounceradmin.mozilla.com/stats/locations/?p=6993 to show some products (replace the ID of the product by yours)
 1. Manually test out the bouncer. Change this link http://download.mozilla.org/?product=firefox-${TO_VERSION}-partial-${FROM_VERSION}&os=win&lang=fr with your product name and all the locations you created. That's case insensitive.
-1. On balrog, perform this addition in the release blob,
+1. On balrog, perform this addition on the release (non `*-prod`) blob,
 `["fileUrls"]["*"]["partials"].append("Firefox-${FROM_VERSION}-build${FROM_BUILD}": "http://download.mozilla.org/?product=firefox-${TO_VERSION}-partial-${FROM_VERSION}&os=%OS_BOUNCER%&lang=%LOCALE%")`. Manually change the `${VARIABLES}`
 7. If you have a what's new page blob on balrog
   1. Download the regular blob (the one just updated in step 6), which now contains all the partials.
