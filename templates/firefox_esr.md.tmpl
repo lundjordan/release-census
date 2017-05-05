@@ -23,7 +23,6 @@ task graph url: unknown
 {% endif %}
 
 #### Status
-- [{% if build["human_tasks"]['localtest'] %}x{% else %} {% endif %}] [emailed esr-localtest](../how-tos/relpro.md#1-email-drivers-re-release-live-on-test-channel)
 - [{% if build["human_tasks"]['mirrors'] %}x{% else %} {% endif %}] [pushed to mirrors/releases](../how-tos/relpro.md#2-push-to-releases-dir-mirrors)
 - [{% if build["human_tasks"]['publish'] %}x{% else %} {% endif %}] [published release tasks](../how-tos/relpro.md#3-publish-release)
 
