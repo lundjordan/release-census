@@ -32,6 +32,9 @@ WIKI_TEMPLATES = {
         'release-rc': os.path.join(TEMPLATES_PATH, 'firefox_release-rc.md.tmpl'),
         'esr': os.path.join(TEMPLATES_PATH, 'firefox_esr.md.tmpl'),
     },
+    'devedition': {
+        'devedition': os.path.join(TEMPLATES_PATH, 'devedition.md.tmpl'),
+    },
     'fennec': {
         'beta': os.path.join(TEMPLATES_PATH, 'fennec_beta.md.tmpl'),
         'release': os.path.join(TEMPLATES_PATH, 'fennec_release.md.tmpl'),
@@ -51,6 +54,9 @@ DATA_TEMPLATES = {
         'release': os.path.join(TEMPLATES_PATH, 'firefox_release.json.tmpl'),
         'release-rc': os.path.join(TEMPLATES_PATH, 'firefox_release-rc.json.tmpl'),
         'esr': os.path.join(TEMPLATES_PATH, 'firefox_esr.json.tmpl'),
+    },
+    'devedition': {
+        'devedition': os.path.join(TEMPLATES_PATH, 'devedition.json.tmpl'),
     },
     'fennec': {
         'beta': os.path.join(TEMPLATES_PATH, 'fennec_beta.json.tmpl'),

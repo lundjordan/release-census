@@ -62,9 +62,9 @@ def parse_args():
     for subcommand in [parser_create, parser_update, parser_sync]:
 
         # each of these sub-commands take the following 2 positional args first
-        subcommand.add_argument('product', choices=['firefox', 'fennec', 'thunderbird'],
+        subcommand.add_argument('product', choices=['firefox', 'fennec', 'thunderbird', 'devedition'],
                                 help='product of release in question')
-        subcommand.add_argument('branch', choices=['release', 'release-rc', 'beta', 'esr'],
+        subcommand.add_argument('branch', choices=['release', 'release-rc', 'beta', 'esr', 'devedition'],
                                 help='release branch of release in question')
         subcommand.add_argument('version', help='version of release in question. examples: '
                                                 '47.0b1, 46.0, 46.0.1, 45.0esr, or 45.0.1esr')
