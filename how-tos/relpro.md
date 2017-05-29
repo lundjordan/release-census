@@ -164,6 +164,13 @@ $ python releasetasks_graph_gen.py --release-runner-ini=../../../release-runner.
   created by release promotion hits its scheduled time and all required signoffs have been
   completed.
 
+    * It is expected that RelEng and RelMan will sign off on the scheduled changes ahead
+      of the ship date.
+    * If the ship time, throttle rate, or anything else about the release changes between
+      the change being scheduled and the expected ship time, the scheduled change should
+      be updated (or deleted) to reflect the change. After doing so, Signoff will be
+      required again.
+
 * the publish release human decision task makes should be triggered after the release
   has been published in Balrog. It triggers the update bouncer aliases, mark as shipped,
   and bump version tasks.
