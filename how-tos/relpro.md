@@ -160,41 +160,36 @@ $ python releasetasks_graph_gen.py --release-runner-ini=../../../release-runner.
 ## 3. publish release
 
 ### why
-* the publish release human decision task makes the release go _live_. it
-  requires sign off from rel-man / QE. It triggers the publish to balrog task
-  for all graph types, plus the update bouncer aliases and bump version tasks
-  for betas and RC graph2 graphs.
+* updates are automatically published automatically by Balrog when the scheduled change
+  created by release promotion hits its scheduled time and all required signoffs have been
+  completed.
+
+* the publish release human decision task makes should be triggered after the release
+  has been published in Balrog. It triggers the update bouncer aliases, mark as shipped,
+  and bump version tasks.
 
 ### when
-* Desktop Firefox Betas
-    * Wait for email from RelMan or QE with subject request like `please push Firefox 47.0b2 to the beta channel`
-    * sanity check all update verify and the final verify task has completed successfully in the graph
-* Desktop Firefox Release-Candidate (beta release prior to release release)
-    * Wait for email from RelMan or QE with subject request like `please push Firefox 46.0 to the beta channel`
-    * sanity check all beta update verify and the beta final verify task has completed successfully in graph 1
-* Desktop Firefox Release and Release-Candidate (RC and dot releases both push to release channel)
-    * Wait for email from RelMan or QE with subject request like `please push Firefox 46.0 to the release channel`
-    * sanity check all release update verify tasks from graph 1 and the release final verify task has completed successfully from graph 2
-* Desktop Firefox ESRs
-    * Wait for email from RelMan or QE with subject request like `please push Firefox 45.2.0esr to the esr channel`
-    * sanity check all release update verify tasks from graph 1 and the release final verify task has completed successfully from graph 2
+* All Desktop Firefox releases
+    * Wait for email on the balrog-db-changes list that shows the mapping on the live channel
+      being changed the Release being shipped.
 
 ### how
 * Desktop Firefox Betas, Desktop Firefox Release-Candidate (beta release prior to release release) and Desktop Firefox dot Releases
     * go to the task graph (there is only one) and find taskId of `publish release human decision task`
     * Resolve the "publish release human decision" task using the command below
-    * reply to RelMan's email as soon as balrog task is completed
+    * Announce to release-drivers that the release is live
 * Desktop Firefox Release and Release-Candidate (RC releases push to release channel)
-    * **IMPORTANT**: you will need to set updates at 25% on release day, and schedule an update for 24hrs to set this rule to 0%!
-    * go to Balrog and set the Fallback Mapping on the "firefox-release" rule to the current value of the Mapping
     * go to the task graph #2 and find taskId of `publish release human decision task`
     * Resolve the "publish release human decision" task using the command below
-    * reply to RelMan's email as soon as balrog task is completed
+    * Announce to release-drivers that the release is live
+    * Schedule an update to change the background rate of the rule to 0% the next day.
+        * Go to Balrog and "Schedule an Update" for the "firefox-release" rule that changes
+          "backgroundRate" to 0 at 9am Pacific the following day. All other fields should remain the same.
 * Desktop Firefox ESRs
     * depending on timing you may have 1 or 2 graphs. Go to the latest one and
       find taskId of `publish release human decision task`
     * Resolve the "publish release human decision" task using the command below
-    * reply to RelMan's email as soon as balrog task is completed
+    * Announce to release-drivers that the release is live
 ```bash
  tctalker --conf ~/.taskcluster/relpro.json report_completed $TASK_ID
 ```
