@@ -156,8 +156,31 @@ $ python releasetasks_graph_gen.py --release-runner-ini=../../../release-runner.
 $ python releasetasks_graph_gen.py --release-runner-ini=../../../release-runner.ini --branch-and-product-config=/home/cltbld/releasetasks/releasetasks/release_configs/prod_mozilla-esr52_firefox_rc_graph_2.yml --common-task-id=$TASK_TASKID_FROM_GRAPH1
 ```
 
+## 3. signoffs
 
-## 3. publish release
+### why
+* to guard against bad actors and compromised credentials we require that any changes to primary release channels (aurora, beta, release, esr) in balrog are signed off on by at least two people.
+
+### when
+
+* after the scheduled change has been created, and prior to the desired publish time
+
+### how
+
+* through the Balrog Scheduled Changes UI (https://aus4-admin.mozilla.org/rules/scheduled_changes)
+
+* RelEng
+    * RelEng is responsible for reviewing the scheduled change to ensure that the mechanics are correct. Most notably, the mapping, fallbackMapping, and backgroundRate need to be verified.
+
+* RelMan/QE
+    * RelMan or QE are responsible for reviewing the scheduled change to ensure that the shipping time is correct and to authorize that the release may be shipped. If circumstances change (eg, we discover a bug we're not willing to ship) after they sign off, they must revoke their signoff in Balrog.
+
+### example
+
+After the Scheduled Change has been created, the Balrog UI will look something like:
+![scheduled change without signoffs](/how-tos/only_scheduled.png?raw=true)
+
+## 4. publish release
 
 ### why
 * updates are automatically published automatically by Balrog when the scheduled change
@@ -201,7 +224,7 @@ $ python releasetasks_graph_gen.py --release-runner-ini=../../../release-runner.
  tctalker --conf ~/.taskcluster/relpro.json report_completed $TASK_ID
 ```
 
-## 4. post release step
+## 5. post release step
 
 ### why
 * releases are needed to be marked as "shipped" in Ship-it to make the partial
