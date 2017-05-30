@@ -180,6 +180,18 @@ $ python releasetasks_graph_gen.py --release-runner-ini=../../../release-runner.
 After the Scheduled Change has been created, the Balrog UI will look something like:
 ![scheduled change without signoffs](/how-tos/only_scheduled.png?raw=true)
 
+When RelEng reviews it they will look at the Mapping, Fallback Mapping, and Backgound Rate (circled above). If everything looks good to them, they will click on the "Signoff as..." button and be presented with a dialog like:
+![signoff modal dialog](/how-tos/signoff_dialog.png?raw=true)
+
+After they make their Signoff, the primary UI will reflect that:
+![scheduled change with one signoff](/how-tos/one_signoff.png?raw=true)
+
+RelMan will go through a similar process, but will be more concerned about verifying the "When" field than the Rule details. Once they make their Signoff the primary UI will reflect that as well:
+![scheduled change with two signoffs](/how-tos/two_signoffs.png?raw=true)
+
+Now that the Signoff requirements have been met, the Scheduled Change will be enacted at the prescribed time.
+
+
 ## 4. publish release
 
 ### why
