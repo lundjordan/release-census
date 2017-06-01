@@ -195,8 +195,8 @@ Now that the Signoff requirements have been met, the Scheduled Change will be en
 ## 4. publish release
 
 ### why
-* updates are automatically published automatically by Balrog when the scheduled change
-  created by release promotion hits its scheduled time and all required signoffs have been
+* updates are automatically published by Balrog when the scheduled change created by
+  release promotion hits its scheduled time and all required signoffs have been
   completed.
 
     * It is expected that RelEng and RelMan will sign off on the scheduled changes ahead
@@ -206,14 +206,14 @@ Now that the Signoff requirements have been met, the Scheduled Change will be en
       be updated (or deleted) to reflect the change. After doing so, Signoff will be
       required again.
 
-* the publish release human decision task makes should be triggered after the release
+* the publish release human decision task should be triggered after the release
   has been published in Balrog. It triggers the update bouncer aliases, mark as shipped,
   and bump version tasks.
 
 ### when
 * All Desktop Firefox releases
     * Wait for email on the balrog-db-changes list that shows the mapping on the live channel
-      being changed the Release being shipped.
+      being changed to the Release being shipped.
 
 ### how
 * Desktop Firefox Betas, Desktop Firefox Release-Candidate (beta release prior to release release) and Desktop Firefox dot Releases
