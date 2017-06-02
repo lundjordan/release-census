@@ -163,7 +163,7 @@ $ python releasetasks_graph_gen.py --release-runner-ini=../../../release-runner.
 
 ### when
 
-* after the scheduled change has been created, and prior to the desired publish time
+* after the scheduled change has been created by the "updates" task, and prior to the desired publish time
 
 ### how
 
