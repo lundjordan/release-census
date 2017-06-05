@@ -79,9 +79,9 @@ Note: you may have 1 or 2 ESRs to bump.
 ```sh
 # go to merge_day directory, created on day 1
 ESR_VERSION=52
-python mozharness-central/scripts/merge_day/gecko_migration.py -c mozharness-esr$ESR_VERSION/configs/merge_day/bump_esr.py
+python mozharness-central/scripts/merge_day/gecko_migration.py -c merge_day/bump_esr.py
 hg -R build/mozilla-esr$ESR_VERSION diff
-python mozharness-central/scripts/merge_day/gecko_migration.py -c mozharness-esr$ESR_VERSION/configs/merge_day/bump_esr.py \
+python mozharness-central/scripts/merge_day/gecko_migration.py -c merge_day/bump_esr.py \
   --commit-changes --push
 ```
 1. Verify new changesets popped on https://hg.mozilla.org/releases/mozilla-esr`$ESR_VERSION`/pushloghtml
