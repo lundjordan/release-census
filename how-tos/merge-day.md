@@ -78,7 +78,7 @@ Note: you may have 1 or 2 ESRs to bump.
 1. Steps are similar to a merge:
 ```sh
 # go to merge_day directory, created on day 1
-ESR_VERSION=45
+ESR_VERSION=52
 python mozharness-central/scripts/merge_day/gecko_migration.py -c mozharness-esr$ESR_VERSION/configs/merge_day/bump_esr.py
 hg -R build/mozilla-esr$ESR_VERSION diff
 python mozharness-central/scripts/merge_day/gecko_migration.py -c mozharness-esr$ESR_VERSION/configs/merge_day/bump_esr.py \
@@ -132,7 +132,7 @@ python mozharness-central/scripts/merge_day/gecko_migration.py -c merge_day/cent
 ### Merge central to beta
 
 1. No need to close central.
-1. 
+1.
 ```sh
 python mozharness-central/scripts/merge_day/gecko_migration.py -c merge_day/central_to_beta.py
 hg -R build/mozilla-aurora diff # Validate it with someone else
