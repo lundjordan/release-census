@@ -172,8 +172,11 @@ $ python releasetasks_graph_gen.py --release-runner-ini=../../../release-runner.
 * RelEng
     * RelEng is responsible for reviewing the scheduled change to ensure that the mechanics are correct. Most notably, the mapping, fallbackMapping, and backgroundRate need to be verified.
 
-* RelMan/QE
-    * RelMan or QE are responsible for reviewing the scheduled change to ensure that the shipping time is correct and to authorize that the release may be shipped. If circumstances change (eg, we discover a bug we're not willing to ship) after they sign off, they must revoke their signoff in Balrog.
+* QE
+    * QE is responsible for signing off on a Scheduled Change after they have successfully verified updates on the cdntest channel.
+
+* RelMan
+    * RelMan is responsible for reviewing the scheduled change to ensure that the shipping time is correct and to authorize that the release may be shipped. If circumstances change (eg, we discover a bug we're not willing to ship) after they sign off, they must revoke their signoff in Balrog.
 
 ### example
 
@@ -186,8 +189,8 @@ When RelEng reviews it they will look at the Mapping, Fallback Mapping, and Back
 After they make their Signoff, the primary UI will reflect that:
 ![scheduled change with one signoff](/how-tos/one_signoff.png?raw=true)
 
-RelMan will go through a similar process, but will be more concerned about verifying the "When" field than the Rule details. Once they make their Signoff the primary UI will reflect that as well:
-![scheduled change with two signoffs](/how-tos/two_signoffs.png?raw=true)
+RelMan and QE will go through a similar process. Once they make their Signoffs the primary UI will reflect that as well:
+![scheduled change with two signoffs](/how-tos/all_signoffs.png?raw=true)
 
 Now that the Signoff requirements have been met, the Scheduled Change will be enacted at the prescribed time.
 
@@ -199,7 +202,7 @@ Now that the Signoff requirements have been met, the Scheduled Change will be en
   release promotion hits its scheduled time and all required signoffs have been
   completed.
 
-    * It is expected that RelEng and RelMan will sign off on the scheduled changes ahead
+    * It is expected that RelEng, QE and RelMan will sign off on the scheduled changes ahead
       of the ship date.
     * If the ship time, throttle rate, or anything else about the release changes between
       the change being scheduled and the expected ship time, the scheduled change should
