@@ -207,7 +207,7 @@ class UpdateRelease(Command):
         logger.info("updating with custom update data")
         for key_change, key_value in self.changes.items():
             if key_change == "issues":
-                owned_key_value = ["<{}>: {}".format(getpass.getuser(), k) for k in key_value]
+                owned_key_value = ["{}: {}".format(getpass.getuser(), k) for k in key_value]
                 new_data['builds'][-1]["issues"].extend(owned_key_value)
             elif key_change == "human_tasks":
                 new_data['builds'][-1]["human_tasks"].update(key_value)
