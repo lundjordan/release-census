@@ -192,12 +192,21 @@ Gecko version in bouncer for nightlies will be updated tomorrow
 Entries in the wiki have been also updated.
 ```
 
-## Day 15 - Post-merge
-
 ### Bump bouncer versions
 
-[jlorenzo] I haven't done this part in the previous merge. I guess we can just copy/paste https://wiki.mozilla.org/ReleaseEngineering/Merge_Duty/Steps#Bump_bouncer_entry_versions
+1. When we have good nightlies from `mozilla-central` with the new version, update the [bouncer](https://bounceradmin.mozilla.com) locations for:
+    1. [firefox-nightly-latest](https://bounceradmin.mozilla.com/admin/mirror/location/?product__id__exact=2005 firefox-nightly-latest)
+    1. [firefox-nightly-latest-ssl](https://bounceradmin.mozilla.com/admin/mirror/location/?product__id__exact=6508 firefox-nightly-latest-ssl)
+    1. [firefox-nightly-latest-l10n](https://bounceradmin.mozilla.com/admin/mirror/location/?product__id__exact=6506 firefox-nightly-latest-l10n)
+    1. [firefox-nightly-latest-l10n-ssl](https://bounceradmin.mozilla.com/admin/mirror/location/?product__id__exact=6507 firefox-nightly-latest-l10n-ssl)
+    1. [firefox-nightly-stub](https://bounceradmin.mozilla.com/admin/mirror/location/?product__id__exact=6509 firefox-nightly-stub)
+    1. [firefox-nightly-stub-l10n](https://bounceradmin.mozilla.com/admin/mirror/location/?product__id__exact=6512 firefox-nightly-stub-l10n)
+
+NB: it is expected that the two stub products have a win and win64 location which both point to the same location. We don't have a win64 stub installer, instead the mislabeled 32bit stub selects the correct full installer at runtime.
 
 ### Trim bouncer's Check Now list
 
-[jlorenzo] Same comment as just above
+1. Once per release cycle we should stop checking old releases to see if they're present
+1. Visit the [list of check now enabled products](https://bounceradmin.mozilla.com/admin/mirror/product/?all=&checknow__exact=1)
+1. you should leave all current and upcoming releases enabled, as well as the updates for watershed releases. Typically this is about 100 products
+1. Select all the old releases not covered above, and use the 'Remove Check Now on selected products' option in the Action dropdown
