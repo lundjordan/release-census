@@ -131,11 +131,10 @@ python mozharness-central/scripts/merge_day/gecko_migration.py -c merge_day/cent
 
 ### Merge central to beta
 
-:warning: Some command lines might not work as it, because this is the first time we perform this migration.
-
 It's almost identical to beta to release:
 
-1. 
+1. Ping l10n folks in #releng (usually `Pike`) and send them a heads-up that we're about to perform the merge so that they can coordinate and sync timing of the l10n side of things
+1. (be aware that for this step, LDAP credentials will be asked for the trigger-builders step)
 ```sh
 # go to merge_day directory, created on day 1
 python mozharness-central/scripts/merge_day/gecko_migration.py -c merge_day/central_to_beta.py
@@ -149,16 +148,22 @@ python mozharness-central/scripts/merge_day/gecko_migration.py \
 ssh buildbot-master01.bb.releng.use1.mozilla.com
 sudo su - cltbld
 cd /builds/l10n-bumper
-mozharness/scripts/l10n_bumper.py -c configs/l10n_bumper/mozilla-beta.py --ignore-closed-tree
+python2.7 mozharness/scripts/l10n_bumper.py -c mozharness/configs/l10n_bumper/mozilla-beta.py --ignore-closed-tree
 ```
 1. Verify changesets are visible on [hg pushlog](https://hg.mozilla.org/releases/mozilla-beta/pushloghtml) and [Treeherder]( https://treeherder.mozilla.org/#/jobs?repo=mozilla-beta). It may take a couple of minutes to appear.
-1. Tell sheriffs this migration is done. They will trigger new nightly builds? ([jlorenzo] unsure of that part)
+1. Ping l10n folks in #releng (usually `Pike`) and send them a heads-up that RelEng side of migration is completed
+1. Trigger nightlies for central. This can be done by:
+    1. trigger [nightly-desktop/mozilla-central](https://tools.taskcluster.net/hooks/#project-releng/nightly-desktop%252fmozilla-central) hook
+    1. trigger [nightly-fennec/mozilla-central](https://tools.taskcluster.net/hooks/#project-releng/nightly-fennec%252fmozilla-central) hook
+    1. go to [BuildAPI](https://secure.pub.build.mozilla.org/buildapi/self-serve/mozilla-central) and look for `Create new nightly builds on mozilla-central revision`. Fill in the latest nightly revision and trigger the nightlies!
+1. Tell sheriffs this migration is done either by popping a short message in #sheriffs or ping the `<handle>|sheriffduty` person from #releng.
 
 ### Update wikis
 
-1. 
+1.
 ```sh
-wget https://hg.mozilla.org/build/tools/file/default/buildfarm/maintenance/update_merge_day_wiki.sh
+wget https://hg.mozilla.org/build/tools/raw-file/default/buildfarm/maintenance/wiki_functions.sh
+wget https://hg.mozilla.org/build/tools/raw-file/default/buildfarm/maintenance/update_merge_day_wiki.sh
 export WIKI_USERNAME=asasaki
 export WIKI_PASSWORD=*******
 NEW_ESR_VERSION=52  # Only if a new ESR comes up (for instance 52.0esr)
@@ -176,7 +181,7 @@ NEW_ESR_VERSION=52  # Only if a new ESR comes up (for instance 52.0esr)
 
 ### Send merge completion email
 
-Reply to the "please merge m-c => m-b" email. CC `thunderbird-drivers@mozilla.org`. The content should be like:
+Reply to the "please merge m-c => m-b" email. CC `thunderbird-drivers@mozilla.org` and `sheriffs@mozilla.org`.  The content should be like:
 ```
 gecko versions are now as follows:
     m-c = 56
