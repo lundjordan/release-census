@@ -1,0 +1,95 @@
+{
+    "complete_releases": [
+        {
+            "builds": [
+                {
+                    "buildnum": 1,
+                    "issues": []
+                }
+            ],
+            "date": "2017-06-01",
+            "product": "firefox",
+            "version": "54.0b13"
+        },
+        {
+            "builds": [
+                {
+                    "buildnum": 1,
+                    "issues": [
+                        "<asasaki>: [bug 1370428](https://bugzil.la/1370428) broken decision task - data.routes should NOT have more than 10 items",
+                        "<mihaitabara>: (question) how did we end up with two signing-android-x86-nightly/opt?"
+                    ]
+                }
+            ],
+            "date": "2017-06-05",
+            "product": "fennec",
+            "version": "54.0b14"
+        },
+        {
+            "builds": [
+                {
+                    "buildnum": 1,
+                    "issues": []
+                }
+            ],
+            "date": "2017-06-05",
+            "product": "devedition",
+            "version": "54.0b14"
+        }
+    ],
+    "date": "2017-06-07",
+    "incomplete_releases": [
+        {
+            "builds": [
+                {
+                    "buildnum": 1,
+                    "issues": [
+                        "CalledProcessError due to a revision with a space. Maybe shipit should strip spaces?",
+                        "[Bug 1369479](https://bugzil.la/1369479) - failed at thunderbird_beta_updates"
+                    ]
+                }
+            ],
+            "date": "2017-05-31",
+            "product": "thunderbird",
+            "version": "54.0b3"
+        },
+        {
+            "builds": [
+                {
+                    "buildnum": 1,
+                    "issues": [
+                        "<mihaitabara>: Aborting this as no QE blessed this build."
+                    ]
+                }
+            ],
+            "date": "2017-06-02",
+            "product": "devedition",
+            "version": "54.0b13"
+        },
+        {
+            "builds": [
+                {
+                    "buildnum": 1,
+                    "issues": [
+                        "NOTE: First rc with new mac signing cert; make sure updates work!",
+                        "<asasaki>: https://bugzilla.mozilla.org/show_bug.cgi?id=1370589 r-d email confusion; said it was on release when only beta"
+                    ]
+                }
+            ],
+            "date": "2017-06-05",
+            "product": "firefox",
+            "version": "54.0"
+        },
+        {
+            "builds": [
+                {
+                    "buildnum": 1,
+                    "issues": []
+                }
+            ],
+            "date": "2017-06-06",
+            "product": "fennec",
+            "version": "54.0"
+        }
+    ]
+}

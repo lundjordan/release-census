@@ -1,0 +1,19 @@
+{
+    "builds": [
+        {
+            "aborted": false,
+            "buildnum": 1,
+            "graphid": "ttjCqpJjR2y9dQCBSvU4FA",
+            "human_tasks": {
+                "publish": false,
+                "shipit": true
+            },
+            "issues": [
+                "<mihaitabara>: Aborting this as no QE blessed this build."
+            ]
+        }
+    ],
+    "date": "2017-06-02",
+    "product": "devedition",
+    "version": "54.0b13"
+}

@@ -1,0 +1,29 @@
+{
+    "builds": [
+        {
+            "aborted": true,
+            "buildnum": 1,
+            "graphid": "9BbVI5jUT3mpKEEkP7y0PQ",
+            "human_tasks": {
+                "publish": false,
+                "shipit": true
+            },
+            "issues": [
+                "unknown funsize_product; rail fixed https://hg.mozilla.org/build/tools/rev/ede5d6057708"
+            ]
+        },
+        {
+            "aborted": false,
+            "buildnum": 2,
+            "graphid": "a3jUHnMiTHqcAiMHA-YA3A",
+            "human_tasks": {
+                "publish": true,
+                "shipit": true
+            },
+            "issues": []
+        }
+    ],
+    "date": "2017-05-25",
+    "product": "firefox",
+    "version": "54.0b11"
+}

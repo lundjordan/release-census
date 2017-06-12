@@ -1,0 +1,22 @@
+{
+    "builds": [
+        {
+            "aborted": false,
+            "buildnum": 1,
+            "graphid": "dsD4UfsyRBuU7Wzih9C7RQ",
+            "human_tasks": {
+                "cdntest": true,
+                "fxsignoff": true,
+                "publish": true,
+                "shipit": true
+            },
+            "issues": [
+                "Manually submitted <my> locale information. Some side effects there due to mismatch of buildids. Comments are in [Bug 1358177](https://bugzil.la/1358177)",
+                "more bbb slowness in resolving tasks - shown as pending while the job has already been completed"
+            ]
+        }
+    ],
+    "date": "2017-04-27",
+    "product": "firefox",
+    "version": "54.0b3"
+}

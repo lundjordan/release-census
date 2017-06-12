@@ -1,0 +1,32 @@
+# Beta: Devedition {{ version }}
+
+### Started: {{ date }}
+
+{% for build in builds %}
+## Build {{ build['buildnum'] }}
+
+### Beta Graph
+{% if build['graphid'] %}
+[task group](https://tools.taskcluster.net/push-inspector/#/{{ build['graphid'] }})
+{% else %}
+task graph url: unknown
+{% endif %}
+
+
+#### Status
+- [{% if build["human_tasks"]['shipit'] %}x{% else %} {% endif %}] [submit to Shipit](https://wiki.mozilla.org/Release:Release_Automation_on_Mercurial:Starting_a_Release#Submit_to_Ship_It)
+- [{% if build["human_tasks"]['publish'] %}x{% else %} {% endif %}] [published release tasks](../how-tos/relpro.md#3-publish-release)
+
+### Issues
+{% for issue in build['issues'] %}
+- {{ issue }}
+{% endfor %}
+{% if not build["issues"] %}
+- none
+{% endif %}
+
+{% if build['aborted'] %}
+:bomb: _aborted release. starting new build num_ :bomb:
+{% endif %}
+
+{% endfor %}

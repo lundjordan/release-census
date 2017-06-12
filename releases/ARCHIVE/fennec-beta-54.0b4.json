@@ -1,0 +1,23 @@
+{
+    "builds": [
+        {
+            "aborted": false,
+            "buildnum": 1,
+            "graphid": "_CijLgM4Tdy4DUWG-0fs8Q",
+            "graphid_2": "qT1cGgzZT7aNtU-xYYC8-g",
+            "human_tasks": {
+                "graph": true,
+                "localtest": true,
+                "publish": true,
+                "pushapk": true,
+                "shipit": true
+            },
+            "issues": [
+                "[Bug 1363286](https://bugzil.la/1363286) - Fennec 54.0b4 never made it to the mirrors (~releases). Repushed subgraph on 2017-05-09"
+            ]
+        }
+    ],
+    "date": "2017-05-01",
+    "product": "fennec",
+    "version": "54.0b4"
+}

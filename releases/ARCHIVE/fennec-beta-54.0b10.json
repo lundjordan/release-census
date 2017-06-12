@@ -1,0 +1,38 @@
+{
+    "builds": [
+        {
+            "aborted": true,
+            "buildnum": 1,
+            "graphid": "",
+            "graphid_2": "",
+            "human_tasks": {
+                "graph": false,
+                "localtest": false,
+                "publish": false,
+                "pushapk": false,
+                "shipit": false
+            },
+            "issues": [
+                "SPECIAL REQUIREMENT: [Bug 1358420](https://bugzil.la/1358420) - 55.0b1 - will likely have to manually change rollout from 10 to 100% after pushing",
+                "between [Bug 1366916](https://bugzil.la/1366916) and [Bug 1347635](https://bugzil.la/1347635) we had to burn 54.0b10 build 1"
+            ]
+        },
+        {
+            "aborted": false,
+            "buildnum": 2,
+            "graphid": "4i2uBZtPRweZJtR8CtHWug",
+            "graphid_2": "i8w_yFHhRI6lFXAUPEJ_kg",
+            "human_tasks": {
+                "graph": true,
+                "localtest": true,
+                "publish": true,
+                "pushapk": true,
+                "shipit": true
+            },
+            "issues": []
+        }
+    ],
+    "date": "2017-05-22",
+    "product": "fennec",
+    "version": "54.0b10"
+}

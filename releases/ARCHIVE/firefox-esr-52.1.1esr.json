@@ -1,0 +1,23 @@
+{
+    "builds": [
+        {
+            "aborted": false,
+            "buildnum": 1,
+            "graphid": "3OyHWi83TrKVlfMq4jm-Yw",
+            "graphid_2": "",
+            "human_tasks": {
+                "localtest": true,
+                "mirrors": true,
+                "publish": true,
+                "shipit": true
+            },
+            "issues": [
+                "Intermittent SIGKILL failed to kill process on win64 l10n repack 7/10. Rerun",
+                "[Bug 1362480](https://bugzil.la/1362480) - unable to version bump off a relbranch"
+            ]
+        }
+    ],
+    "date": "2017-05-04",
+    "product": "firefox",
+    "version": "52.1.1esr"
+}

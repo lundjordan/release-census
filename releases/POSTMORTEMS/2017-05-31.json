@@ -1,0 +1,98 @@
+{
+    "complete_releases": [
+        {
+            "builds": [
+                {
+                    "buildnum": 1,
+                    "issues": [
+                        "unknown funsize_product; rail fixed https://hg.mozilla.org/build/tools/rev/ede5d6057708"
+                    ]
+                },
+                {
+                    "buildnum": 2,
+                    "issues": []
+                }
+            ],
+            "date": "2017-05-25",
+            "product": "firefox",
+            "version": "54.0b11"
+        },
+        {
+            "builds": [
+                {
+                    "buildnum": 1,
+                    "issues": []
+                }
+            ],
+            "date": "2017-05-25",
+            "product": "thunderbird",
+            "version": "54.0b2"
+        },
+        {
+            "builds": [
+                {
+                    "buildnum": 1,
+                    "issues": [
+                        "[Bug 1366075](https://bugzil.la/1366075) - Missing template variable",
+                        "[Bug 1365588](https://bugzil.la/1365588) - forgot to uplift to beta",
+                        "[Bug 1351318](https://bugzil.la/1351318) - Needed to backout the patch to avoid osx on TC builders",
+                        "[Bug 1367978](https://bugzil.la/1367978) - L10N repacks are signed with release certs"
+                    ]
+                },
+                {
+                    "buildnum": 2,
+                    "issues": []
+                },
+                {
+                    "buildnum": 3,
+                    "issues": []
+                },
+                {
+                    "buildnum": 4,
+                    "issues": []
+                }
+            ],
+            "date": "2017-05-26",
+            "product": "devedition",
+            "version": "54.0b11"
+        },
+        {
+            "builds": [
+                {
+                    "buildnum": 1,
+                    "issues": []
+                }
+            ],
+            "date": "2017-05-29",
+            "product": "devedition",
+            "version": "54.0b12"
+        },
+        {
+            "builds": [
+                {
+                    "buildnum": 1,
+                    "issues": []
+                }
+            ],
+            "date": "2017-05-29",
+            "product": "firefox",
+            "version": "54.0b12"
+        },
+        {
+            "builds": [
+                {
+                    "buildnum": 1,
+                    "issues": [
+                        "container failure within build-android-x86. Reran",
+                        "[Bug 1368627](https://bugzil.la/1368627) - funsize_product missing from Fennec templates."
+                    ]
+                }
+            ],
+            "date": "2017-05-30",
+            "product": "fennec",
+            "version": "54.0b12"
+        }
+    ],
+    "date": "2017-05-31",
+    "incomplete_releases": []
+}

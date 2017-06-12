@@ -1,0 +1,21 @@
+{
+    "builds": [
+        {
+            "aborted": false,
+            "buildnum": 1,
+            "graphid": "-W8h5J3LQ3SDU25KXX82rw",
+            "human_tasks": {
+                "fxsignoff": true,
+                "publish": true,
+                "shipit": true
+            },
+            "issues": [
+                "graph ids starting with a '-' are interpreted as commandline options",
+                "funsize-balrog-submitter failed 6 times in a row on cloning; reran"
+            ]
+        }
+    ],
+    "date": "2017-05-18",
+    "product": "firefox",
+    "version": "54.0b9"
+}

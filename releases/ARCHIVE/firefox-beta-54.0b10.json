@@ -1,0 +1,20 @@
+{
+    "builds": [
+        {
+            "aborted": false,
+            "buildnum": 1,
+            "graphid": "Y-IRKWK9QDm6lbSp11B-dA",
+            "human_tasks": {
+                "fxsignoff": true,
+                "publish": true,
+                "shipit": true
+            },
+            "issues": [
+                "[Bug 1366916](https://bugzil.la/1366916) - version bumping failed after b9 due to alphabetical comparison"
+            ]
+        }
+    ],
+    "date": "2017-05-22",
+    "product": "firefox",
+    "version": "54.0b10"
+}

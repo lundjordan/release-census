@@ -6,7 +6,7 @@ These steps are meant to be specifically for Fennec-53.0b1.
 
 1. noop ship-it
 2. skip source
-3. start off the Fenenc graph
+3. start off the Fennec graph
 4. steps after QA signed off
 
 # Detailed descriptions
@@ -29,17 +29,25 @@ will have their TaskGroupId set to the decision task. That is the nightly graph 
 * Follow the following set of instructions:
 
 ```bash
-$ ssh `whoami`@buildbot-master85.bb.releng.scl3.mozilla.com  # host we release-runner and you generate/submit new release promotion graphs
-$ sudo su - cltbld
-$ cd /home/cltbld/releasetasks/
-$ git pull origin master  # make sure we are up to date. note: make sure this is on master and clean first
-$ cd /builds/releaserunner/tools/buildfarm/release/
-$ hg pull -u # make sure we are up to date. note: make sure this is on default and clean first
-$ source /builds/releaserunner/bin/activate
+ssh `whoami`@buildbot-master85.bb.releng.scl3.mozilla.com  # host we release-runner and you generate/submit new release promotion graphs
+sudo su - cltbld
+BRANCH=beta  # use release for release
+VERSION=54.0b14
+BUILD_NUMBER=1
+REVISION=1234456
+cd /home/cltbld/releasetasks/
+git status  # make sure we're clean
+git branch  # make sure we're on master
+git pull origin master  # make sure we are up to date.
+cd /builds/releaserunner/tools/buildfarm/release/
+hg status  # make sure this is clean
+hg branch  # make sure this is on default
+hg pull -u # make sure we are up to date.
+source /builds/releaserunner/bin/activate
 # call releasetasks_graph_gen.py with --dry-run and sanity check the graph output that would be submitted
-$ python releasetasks_graph_gen.py --release-runner-ini=../../../release-runner.ini --branch-and-product-config=/home/cltbld/releasetasks/releasetasks/release_configs/prod_mozilla-beta_fennec_full_graph.yml  --version TODO --build-number TODO --mozilla-revision TODO --dry-run
+python releasetasks_graph_gen.py --release-runner-ini=../../../release-runner.ini --branch-and-product-config=/home/cltbld/releasetasks/releasetasks/release_configs/prod_mozilla-${BRANCH}_fennec_full_graph.yml  --version $VERSION --build-number $BUILD_NUMBER --mozilla-revision $REVISION --dry-run
 # call releasetasks_graph_gen.py for reals which will submit the graph to Taskcluster
-$ python releasetasks_graph_gen.py --release-runner-ini=../../../release-runner.ini --branch-and-product-config=/home/cltbld/releasetasks/releasetasks/release_configs/prod_mozilla-beta_fennec_full_graph.yml  --version TODO --build-number TODO --mozilla-revision TODO
+python releasetasks_graph_gen.py --release-runner-ini=../../../release-runner.ini --branch-and-product-config=/home/cltbld/releasetasks/releasetasks/release_configs/prod_mozilla-${BRANCH}_fennec_full_graph.yml  --version $VERSION --build-number $BUILD_NUMBER --mozilla-revision $REVISION
 ```
 
 * The resulted graphid should be tracked in releasewarrior

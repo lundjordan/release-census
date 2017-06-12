@@ -1,0 +1,20 @@
+{
+    "builds": [
+        {
+            "aborted": false,
+            "buildnum": 1,
+            "graphid": "1rSsEVfyRhepFYIzK70VGw",
+            "human_tasks": {
+                "graph": true,
+                "localtest": true,
+                "publish": true,
+                "pushapk": true,
+                "shipit": true
+            },
+            "issues": []
+        }
+    ],
+    "date": "2017-04-20",
+    "product": "fennec",
+    "version": "54.0b1"
+}

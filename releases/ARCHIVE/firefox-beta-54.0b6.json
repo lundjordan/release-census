@@ -1,0 +1,20 @@
+{
+    "builds": [
+        {
+            "aborted": false,
+            "buildnum": 1,
+            "graphid": "lRoNILIzRdi1-blSu6URlw",
+            "human_tasks": {
+                "fxsignoff": true,
+                "publish": true,
+                "shipit": true
+            },
+            "issues": [
+                "[Bug 1363334](https://bugzil.la/1363334) - update verification fails for Firefox 54.0b6 chunks {1,2,3,4} on all platforms"
+            ]
+        }
+    ],
+    "date": "2017-05-08",
+    "product": "firefox",
+    "version": "54.0b6"
+}

@@ -1,0 +1,34 @@
+{
+    "builds": [
+        {
+            "aborted": true,
+            "buildnum": 1,
+            "human_tasks": {
+                "publish": false,
+                "shipit": false
+            },
+            "issues": []
+        },
+        {
+            "aborted": true,
+            "buildnum": 2,
+            "human_tasks": {
+                "publish": false,
+                "shipit": false
+            },
+            "issues": []
+        },
+        {
+            "aborted": false,
+            "buildnum": 3,
+            "human_tasks": {
+                "publish": true,
+                "shipit": true
+            },
+            "issues": []
+        }
+    ],
+    "date": "2017-05-18",
+    "product": "thunderbird",
+    "version": "54.0b1"
+}

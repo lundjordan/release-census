@@ -1,0 +1,17 @@
+{
+    "builds": [
+        {
+            "aborted": false,
+            "buildnum": 1,
+            "graphid": "Dl862UtbRHiHpxdK0AnK_g",
+            "human_tasks": {
+                "publish": true,
+                "shipit": true
+            },
+            "issues": []
+        }
+    ],
+    "date": "2017-06-01",
+    "product": "firefox",
+    "version": "54.0b13"
+}

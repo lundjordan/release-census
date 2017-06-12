@@ -1,0 +1,24 @@
+{
+    "builds": [
+        {
+            "aborted": false,
+            "buildnum": 1,
+            "graphid": "rc1MDdBJToeHMLCQYbi8fA",
+            "graphid_2": "Lu0Im3L8StGJWEbvsekJcA",
+            "human_tasks": {
+                "graph": true,
+                "localtest": true,
+                "publish": true,
+                "pushapk": true,
+                "shipit": true
+            },
+            "issues": [
+                "<asasaki>: [bug 1370428](https://bugzil.la/1370428) broken decision task - data.routes should NOT have more than 10 items",
+                "<mihaitabara>: (question) how did we end up with two signing-android-x86-nightly/opt?"
+            ]
+        }
+    ],
+    "date": "2017-06-05",
+    "product": "fennec",
+    "version": "54.0b14"
+}

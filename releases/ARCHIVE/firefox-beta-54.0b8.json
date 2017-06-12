@@ -1,0 +1,18 @@
+{
+    "builds": [
+        {
+            "aborted": false,
+            "buildnum": 1,
+            "graphid": "y_GFxG4UTVe1cRe80UIRHw",
+            "human_tasks": {
+                "fxsignoff": true,
+                "publish": true,
+                "shipit": true
+            },
+            "issues": []
+        }
+    ],
+    "date": "2017-05-15",
+    "product": "firefox",
+    "version": "54.0b8"
+}

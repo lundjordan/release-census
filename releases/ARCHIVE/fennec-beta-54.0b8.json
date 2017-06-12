@@ -1,0 +1,23 @@
+{
+    "builds": [
+        {
+            "aborted": false,
+            "buildnum": 1,
+            "graphid": "-74la-DjTSqS4Kea6I8sag",
+            "graphid_2": "URGuaVTFTO2QAEXZmNsmgg",
+            "human_tasks": {
+                "graph": true,
+                "localtest": true,
+                "publish": true,
+                "pushapk": true,
+                "shipit": true
+            },
+            "issues": [
+                "Pushapk failing for python deps mismatch. [Bug 1365290](https://bugzil.la/1365290)"
+            ]
+        }
+    ],
+    "date": "2017-05-15",
+    "product": "fennec",
+    "version": "54.0b8"
+}

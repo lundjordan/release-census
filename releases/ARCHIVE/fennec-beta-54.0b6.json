@@ -1,0 +1,23 @@
+{
+    "builds": [
+        {
+            "aborted": false,
+            "buildnum": 1,
+            "graphid": "sMO4ybV9Qb2tmcI1sDHClQ",
+            "graphid_2": "",
+            "human_tasks": {
+                "graph": true,
+                "localtest": true,
+                "publish": true,
+                "pushapk": true,
+                "shipit": true
+            },
+            "issues": [
+                "[Bug 1363287](https://bugzil.la/1363287) - target.awsy.tests.zip missing from Fennec beetmover jobs."
+            ]
+        }
+    ],
+    "date": "2017-05-08",
+    "product": "fennec",
+    "version": "54.0b6"
+}

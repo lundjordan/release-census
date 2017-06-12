@@ -1,0 +1,21 @@
+{
+    "builds": [
+        {
+            "aborted": false,
+            "buildnum": 1,
+            "graphid": "hK6cgcAkQgaqDH3PB9MGNw",
+            "human_tasks": {
+                "cdntest": true,
+                "fxsignoff": true,
+                "publish": true,
+                "shipit": true
+            },
+            "issues": [
+                "Error stashed as MAR in 54.0b4 for te locale in Mac updates makes final verification fail - [Bug 1361255](https://bugzil.la/1361255). Eventually removed partial mar for that specific 54.0b3->54.0b4 update so that Mac users on te locale will get a complete mar instead of a partial mar."
+            ]
+        }
+    ],
+    "date": "2017-05-01",
+    "product": "firefox",
+    "version": "54.0b4"
+}

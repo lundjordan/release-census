@@ -1,0 +1,23 @@
+{
+    "builds": [
+        {
+            "aborted": false,
+            "buildnum": 1,
+            "graphid": "_QkEWdAHQaG8NkjNUqWuJg",
+            "graphid_2": "",
+            "human_tasks": {
+                "graph": true,
+                "localtest": true,
+                "publish": true,
+                "pushapk": true,
+                "shipit": true
+            },
+            "issues": [
+                "[Bug 1355783](https://bugzil.la/1355783) provisioner issues spawning gecko-symbol-upload workerTypes; pinged #taskcluster"
+            ]
+        }
+    ],
+    "date": "2017-05-04",
+    "product": "fennec",
+    "version": "53.0.2"
+}

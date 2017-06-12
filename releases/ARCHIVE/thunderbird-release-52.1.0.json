@@ -1,0 +1,27 @@
+{
+    "builds": [
+        {
+            "aborted": true,
+            "buildnum": 1,
+            "human_tasks": {
+                "mirrors": false,
+                "publish": false,
+                "shipit": false
+            },
+            "issues": []
+        },
+        {
+            "aborted": false,
+            "buildnum": 2,
+            "human_tasks": {
+                "mirrors": true,
+                "publish": true,
+                "shipit": true
+            },
+            "issues": []
+        }
+    ],
+    "date": "2017-04-28",
+    "product": "thunderbird",
+    "version": "52.1.0"
+}

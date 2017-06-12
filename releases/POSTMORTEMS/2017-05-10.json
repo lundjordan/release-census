@@ -1,0 +1,117 @@
+{
+    "complete_releases": [
+        {
+            "builds": [
+                {
+                    "buildnum": 1,
+                    "issues": [
+                        "[Bug 1363286](https://bugzil.la/1363286) - Fennec 54.0b4 never made it to the mirrors (~releases). Repushed subgraph on 2017-05-09"
+                    ]
+                }
+            ],
+            "date": "2017-05-01",
+            "product": "fennec",
+            "version": "54.0b4"
+        },
+        {
+            "builds": [
+                {
+                    "buildnum": 1,
+                    "issues": [
+                        "[Bug 1355783](https://bugzil.la/1355783) provisioner issues spawning gecko-symbol-upload workerTypes; pinged #taskcluster"
+                    ]
+                }
+            ],
+            "date": "2017-05-04",
+            "product": "fennec",
+            "version": "53.0.2"
+        },
+        {
+            "builds": [
+                {
+                    "buildnum": 1,
+                    "issues": [
+                        "SPECIAL REQUIREMENT: if we decide to ship a dot release, we need to keep the WNP around for users updating from <53.0 : https://bugzilla.mozilla.org/show_bug.cgi?id=1354736#c26",
+                        "SPECIAL REQUIREMENT: after shipping 53.0.1, [repack the funnelcake](https://gist.github.com/escapewindow/5dba93a02bb346f5ac3677477106a46f/#funnelcake-still-live-when-we-do-a-chemspilldot-release-eg-5301)",
+                        "Missing WNP blobs added manually. More on this [here](https://bugzilla.mozilla.org/show_bug.cgi?id=1354736#c28)",
+                        "added a FUTURE/firefox-release-53.0.1.json but we skipped that version"
+                    ]
+                }
+            ],
+            "date": "2017-05-04",
+            "product": "firefox",
+            "version": "53.0.2"
+        },
+        {
+            "builds": [
+                {
+                    "buildnum": 1,
+                    "issues": [
+                        "Intermittent SIGKILL failed to kill process on win64 l10n repack 4/10. Rerun"
+                    ]
+                }
+            ],
+            "date": "2017-05-04",
+            "product": "firefox",
+            "version": "54.0b5"
+        },
+        {
+            "builds": [
+                {
+                    "buildnum": 1,
+                    "issues": [
+                        "Intermittent SIGKILL failed to kill process on win64 l10n repack 7/10. Rerun",
+                        "[Bug 1362480](https://bugzil.la/1362480) - unable to version bump off a relbranch"
+                    ]
+                }
+            ],
+            "date": "2017-05-04",
+            "product": "firefox",
+            "version": "52.1.1esr"
+        },
+        {
+            "builds": [
+                {
+                    "buildnum": 1,
+                    "issues": [
+                        "[Bug 1363287](https://bugzil.la/1363287) - target.awsy.tests.zip missing from Fennec beetmover jobs."
+                    ]
+                }
+            ],
+            "date": "2017-05-08",
+            "product": "fennec",
+            "version": "54.0b6"
+        },
+        {
+            "builds": [
+                {
+                    "buildnum": 1,
+                    "issues": [
+                        "[Bug 1363334](https://bugzil.la/1363334) - update verification fails for Firefox 54.0b6 chunks {1,2,3,4} on all platforms"
+                    ]
+                }
+            ],
+            "date": "2017-05-08",
+            "product": "firefox",
+            "version": "54.0b6"
+        }
+    ],
+    "date": "2017-05-10",
+    "incomplete_releases": [
+        {
+            "builds": [
+                {
+                    "buildnum": 1,
+                    "issues": [
+                        "delayed tagging https://github.com/mozilla-releng/build-cloud-tools/pull/295",
+                        "delayed tagging caused mac and windows builds to fail; retriggered",
+                        "[Bug 1363711](https://bugzil.la/1363711) - failed at thunderbird_release_updates."
+                    ]
+                }
+            ],
+            "date": "2017-05-09",
+            "product": "thunderbird",
+            "version": "52.1.1"
+        }
+    ]
+}

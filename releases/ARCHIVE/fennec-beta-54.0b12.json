@@ -1,0 +1,24 @@
+{
+    "builds": [
+        {
+            "aborted": false,
+            "buildnum": 1,
+            "graphid": "_oitkntbQUGV1Yl7ChSybQ",
+            "graphid_2": "9m66z34aSjW37NRvU10Caw",
+            "human_tasks": {
+                "graph": true,
+                "localtest": true,
+                "publish": true,
+                "pushapk": true,
+                "shipit": true
+            },
+            "issues": [
+                "container failure within build-android-x86. Reran",
+                "[Bug 1368627](https://bugzil.la/1368627) - funsize_product missing from Fennec templates."
+            ]
+        }
+    ],
+    "date": "2017-05-30",
+    "product": "fennec",
+    "version": "54.0b12"
+}

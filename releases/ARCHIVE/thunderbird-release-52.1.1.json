@@ -1,0 +1,21 @@
+{
+    "builds": [
+        {
+            "aborted": false,
+            "buildnum": 1,
+            "human_tasks": {
+                "mirrors": true,
+                "publish": true,
+                "shipit": true
+            },
+            "issues": [
+                "delayed tagging https://github.com/mozilla-releng/build-cloud-tools/pull/295",
+                "delayed tagging caused mac and windows builds to fail; retriggered",
+                "[Bug 1363711](https://bugzil.la/1363711) - failed at thunderbird_release_updates."
+            ]
+        }
+    ],
+    "date": "2017-05-09",
+    "product": "thunderbird",
+    "version": "52.1.1"
+}

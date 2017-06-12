@@ -1,0 +1,52 @@
+{
+    "builds": [
+        {
+            "aborted": true,
+            "buildnum": 1,
+            "graphid": "lkJdznr3QDyZdELDnQnwGA",
+            "human_tasks": {
+                "publish": false,
+                "shipit": true
+            },
+            "issues": [
+                "[Bug 1366075](https://bugzil.la/1366075) - Missing template variable",
+                "[Bug 1365588](https://bugzil.la/1365588) - forgot to uplift to beta",
+                "[Bug 1351318](https://bugzil.la/1351318) - Needed to backout the patch to avoid osx on TC builders",
+                "[Bug 1367978](https://bugzil.la/1367978) - L10N repacks are signed with release certs"
+            ]
+        },
+        {
+            "aborted": true,
+            "buildnum": 2,
+            "graphid": "737ajm07R46qstWjwy-8yg",
+            "human_tasks": {
+                "publish": false,
+                "shipit": true
+            },
+            "issues": []
+        },
+        {
+            "aborted": true,
+            "buildnum": 3,
+            "graphid": "2ZfyTYrkQbeAgDoIpQ6Bcw",
+            "human_tasks": {
+                "publish": false,
+                "shipit": true
+            },
+            "issues": []
+        },
+        {
+            "aborted": false,
+            "buildnum": 4,
+            "graphid": "ffMBc4HPRvWFPLsIMzN84g",
+            "human_tasks": {
+                "publish": true,
+                "shipit": true
+            },
+            "issues": []
+        }
+    ],
+    "date": "2017-05-26",
+    "product": "devedition",
+    "version": "54.0b11"
+}

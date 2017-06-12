@@ -1,0 +1,61 @@
+{
+    "complete_releases": [
+        {
+            "builds": [
+                {
+                    "buildnum": 1,
+                    "issues": [
+                        "delayed tagging https://github.com/mozilla-releng/build-cloud-tools/pull/295",
+                        "delayed tagging caused mac and windows builds to fail; retriggered",
+                        "[Bug 1363711](https://bugzil.la/1363711) - failed at thunderbird_release_updates."
+                    ]
+                }
+            ],
+            "date": "2017-05-09",
+            "product": "thunderbird",
+            "version": "52.1.1"
+        },
+        {
+            "builds": [
+                {
+                    "buildnum": 1,
+                    "issues": [
+                        "NOTE: First beta with new mac signing cert; make sure updates work!",
+                        "firefox mozilla-beta win64 l10n repack 10/10 timeout; reran",
+                        "firefox mozilla-beta win64 l10n repack 9/10 timeout; reran",
+                        "mac update test bustage in [Bug 1363334](https://bugzil.la/1363334)"
+                    ]
+                }
+            ],
+            "date": "2017-05-11",
+            "product": "firefox",
+            "version": "54.0b7"
+        },
+        {
+            "builds": [
+                {
+                    "buildnum": 1,
+                    "issues": []
+                }
+            ],
+            "date": "2017-05-15",
+            "product": "firefox",
+            "version": "54.0b8"
+        },
+        {
+            "builds": [
+                {
+                    "buildnum": 1,
+                    "issues": [
+                        "Pushapk failing for python deps mismatch. [Bug 1365290](https://bugzil.la/1365290)"
+                    ]
+                }
+            ],
+            "date": "2017-05-15",
+            "product": "fennec",
+            "version": "54.0b8"
+        }
+    ],
+    "date": "2017-05-17",
+    "incomplete_releases": []
+}

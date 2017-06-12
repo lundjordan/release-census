@@ -1,0 +1,38 @@
+{
+    "builds": [
+        {
+            "aborted": true,
+            "buildnum": 1,
+            "graphid": "TQDEiWGXRmW7b-8OeXkuPA",
+            "graphid_2": "",
+            "human_tasks": {
+                "graph": true,
+                "localtest": false,
+                "publish": false,
+                "pushapk": false,
+                "shipit": true
+            },
+            "issues": [
+                "buildbot triggered builds! how did this happen?",
+                "QE didn't sign off the fix. Build aborted"
+            ]
+        },
+        {
+            "aborted": false,
+            "buildnum": 2,
+            "graphid": "R8n7z4xWQOaq1DkLTLMsTg",
+            "graphid_2": "",
+            "human_tasks": {
+                "graph": true,
+                "localtest": true,
+                "publish": true,
+                "pushapk": true,
+                "shipit": true
+            },
+            "issues": []
+        }
+    ],
+    "date": "2017-04-19",
+    "product": "fennec",
+    "version": "53.0.1"
+}

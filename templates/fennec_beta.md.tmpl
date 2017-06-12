@@ -7,9 +7,14 @@
 
 ### Beta Graph
 {% if build['graphid'] %}
-[task group](https://tools.taskcluster.net/push-inspector/#/{{ build['graphid'] }})
+- [task group 1](https://tools.taskcluster.net/push-inspector/#/{{ build['graphid'] }})
 {% else %}
-task graph url: unknown
+- first task graph url: unknown
+{% endif %}
+{% if build['graphid_2'] %}
+- [task group 2](https://tools.taskcluster.net/push-inspector/#/{{ build['graphid_2'] }})
+{% else %}
+- second task graph url: unknown
 {% endif %}
 
 ### Status

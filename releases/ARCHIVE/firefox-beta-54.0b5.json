@@ -1,0 +1,21 @@
+{
+    "builds": [
+        {
+            "aborted": false,
+            "buildnum": 1,
+            "graphid": "iqZMxP-aRXePMi_4-vmkwA",
+            "human_tasks": {
+                "cdntest": true,
+                "fxsignoff": true,
+                "publish": true,
+                "shipit": true
+            },
+            "issues": [
+                "Intermittent SIGKILL failed to kill process on win64 l10n repack 4/10. Rerun"
+            ]
+        }
+    ],
+    "date": "2017-05-04",
+    "product": "firefox",
+    "version": "54.0b5"
+}

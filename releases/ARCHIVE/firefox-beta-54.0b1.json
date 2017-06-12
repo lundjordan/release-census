@@ -5,9 +5,9 @@
             "buildnum": 1,
             "graphid": "",
             "human_tasks": {
-                "cdntest": false,
-                "fxsignoff": false,
-                "publish": false,
+                "cdntest": true,
+                "fxsignoff": true,
+                "publish": true,
                 "shipit": true
             },
             "issues": [

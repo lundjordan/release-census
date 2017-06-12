@@ -1,0 +1,24 @@
+{
+    "builds": [
+        {
+            "aborted": false,
+            "buildnum": 1,
+            "graphid": "ig9LC1C4RuiY98vEazrXgQ",
+            "human_tasks": {
+                "cdntest": true,
+                "fxsignoff": true,
+                "publish": true,
+                "shipit": true
+            },
+            "issues": [
+                "SPECIAL REQUIREMENT: [Bug 1358177](https://bugzil.la/1358177) - Firefox 54.0b2: 'my' locale submit complete MAR metadata to balrog",
+                "Ship-it submission failed due to 'Retrying because of: 503 Server Error: Service Unavailable' with 12 attemps. Graph eventually submitted but reported as failed in Ship-it UI",
+                "A 10-tasks bunch stalled for 2-3h for some reason. 4 beetmover jobs and 6 funsize jobs (signing, publishing and update generators. Canceled all of them and reran them",
+                "bbb lag in marking shipped?"
+            ]
+        }
+    ],
+    "date": "2017-04-24",
+    "product": "firefox",
+    "version": "54.0b2"
+}

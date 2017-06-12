@@ -3,18 +3,18 @@
         {
             "aborted": false,
             "buildnum": 1,
-            "graphid": "1rSsEVfyRhepFYIzK70VGw",
+            "graphid": "i_r6G1YMTzKuE90dZbqGzQ",
             "human_tasks": {
                 "graph": true,
                 "localtest": true,
-                "publish": false,
-                "pushapk": false,
+                "publish": true,
+                "pushapk": true,
                 "shipit": true
             },
             "issues": []
         }
     ],
-    "date": "2017-04-20",
+    "date": "2017-04-24",
     "product": "fennec",
-    "version": "54.0b1"
+    "version": "54.0b2"
 }

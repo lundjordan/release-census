@@ -49,6 +49,9 @@ def ensure_branch_and_version_are_valid(branch, version):
     if branch == 'beta' and 'b' not in version:
         logger.error("beta specified but 'b' not found in version.")
         mismatch = True
+    if branch == 'devedition' and 'b' not in version:
+        logger.error("devedition specified but 'b' not found in version.")
+        mismatch = True
     elif branch in ['release', 'release-rc']:
         if re.search('[a-zA-Z]', version):
             logger.error("%s specified but an alpha char was found in version", branch)

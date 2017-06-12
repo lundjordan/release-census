@@ -1,0 +1,24 @@
+{
+    "builds": [
+        {
+            "aborted": false,
+            "buildnum": 1,
+            "graphid": "kzUwQOlpRmGCT-0z0GsTxw",
+            "human_tasks": {
+                "localtest": true,
+                "mirrors": true,
+                "publish": true,
+                "shipit": true
+            },
+            "issues": [
+                "SPECIAL REQUIREMENT: if we decide to ship a dot release, we need to keep the WNP around for users updating from <53.0 : https://bugzilla.mozilla.org/show_bug.cgi?id=1354736#c26",
+                "SPECIAL REQUIREMENT: after shipping 53.0.1, [repack the funnelcake](https://gist.github.com/escapewindow/5dba93a02bb346f5ac3677477106a46f/#funnelcake-still-live-when-we-do-a-chemspilldot-release-eg-5301)",
+                "Missing WNP blobs added manually. More on this [here](https://bugzilla.mozilla.org/show_bug.cgi?id=1354736#c28)",
+                "added a FUTURE/firefox-release-53.0.1.json but we skipped that version"
+            ]
+        }
+    ],
+    "date": "2017-05-04",
+    "product": "firefox",
+    "version": "53.0.2"
+}
