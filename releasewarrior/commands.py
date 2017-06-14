@@ -401,9 +401,9 @@ class Status(Command):
                 release["product"], release["version"], curr_build["buildnum"],
                 release["date"])
             if curr_build.get("graphid"):
-                logger.info("Graph: https://tools.taskcluster.net/push-inspector/#/%s ", curr_build["graphid"])
+                logger.info("Graph: https://tools.taskcluster.net/task-group-inspector/#/%s", curr_build["graphid"])
             if curr_build.get("graphid_2"):
-                logger.info("Graph 2: https://tools.taskcluster.net/push-inspector/#/%s ", curr_build["graphid_2"])
+                logger.info("Graph 2: https://tools.taskcluster.net/task-group-inspector/#/%s", curr_build["graphid_2"])
             logger.info("\tincomplete human tasks:")
             for task in remaining_tasks_ordered:
                 logger.info("\t\t* %s", task)
