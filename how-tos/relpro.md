@@ -210,9 +210,9 @@ $ python releasetasks_graph_gen.py --release-runner-ini=../../../release-runner.
 * immediately after running `publish release` human decision step
 
 ### how
-* Desktop Firefox Betas, Desktop Firefox Release, Desktop Firefox dot Releases, Desktop Firefox ESRs
+* Desktop Firefox Betas, Desktop Firefox Release, Desktop Firefox dot Releases, Desktop Firefox ESRs and Fennec Beta/Releases
     * it is done automatically so just sanity check that the `<product> <channel> mark release as shipped` has completed successfully in the graph
-* Other *not* release-promotion based releases (Thunderbird, Fennec, etc) are needed to be marked as shipped on Ship It. To do so, visit
+* Other *not* release-promotion based releases (Thunderbird) are needed to be marked as shipped on Ship It. To do so, visit
   https://ship-it.mozilla.org/releases.html, find the release in question, and
   click the "Shipped!" button.
 
