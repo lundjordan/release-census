@@ -22,7 +22,7 @@ from releasewarrior.config import DATA_TEMPLATES, WIKI_TEMPLATES, POSTMORTEMS_PA
 
 logger = logging.getLogger('releasewarrior')
 
-_UPSTREAM_REPO_URL = re.compile(r'(https://|git@)github\.com[:/]mozilla/releasewarrior(\.git)?')
+_UPSTREAM_REPO_URL = re.compile(r'((?:https|ssh)://|git@)github\.com[:/]mozilla/releasewarrior(\.git)?')
 _SIMPLIFIED_REPO_URL = 'github.com/mozilla/releasewarrior' # Used only to simplify what's logged out
 
 class Command(metaclass=abc.ABCMeta):
