@@ -60,18 +60,18 @@ In order to be productive squirrels, we've developed a bunch of tools to help us
 
 ## FAQ
 
-1. How does the Ship-it workflow work in terms of shipping a new release?
+1. *How does the Ship-it workflow work in terms of shipping a new release?*
 
 RelMan submits a new release form [here](https://ship-it.mozilla.org/), another RelMan reviews that and once it hits 'Ready' + 'Do eeaat' the release enters the 'Reviewed' section and waits to be run.
 Since there's a `release-runner.sh` script running in a loop on [bm81](https://hg.mozilla.org/build/puppet/file/default/manifests/moco-nodes.pp#l598), there's a max windows of 60 seconds till the job gets its share, following which it enters the 'Running/Complete' table where we can observe its state.
 The "Reviewed" tab goes to "No pending release" yet again.
 
-2. What does release-promotion refer to?
+2. *What does release-promotion refer to?*
 
 'release promotion' is simply the idea that we take an already existing CI build from (e.g. beta) and promote that to being the build we release/ship to users. Prior to this approach, we had always rebuilt Firefox at the start of each new release.
 Long story short, release promotion entails taking an existing set of builds that have already been triggered and passed QA and “promoting” them to be used as a release candidate. More on promotion can be found in our wiki [here](https://wiki.mozilla.org/ReleaseEngineering/Release_build_promotion)
 
-3. What is the train model?
+3. *What is the train model?*
 
 Since 2012 Mozilla moved to a fixed-schedule release model, otherwise known as the Train Model, in which we released Firefox every six weeks to get features and updates to users faster and move at the speed of the Web. Hence, every six weeks the following merges take place:
 [mozilla-beta](http://hg.mozilla.org/releases/mozilla-beta/) => [mozilla-release](http://hg.mozilla.org/releases/mozilla-release/)
@@ -79,16 +79,16 @@ Since 2012 Mozilla moved to a fixed-schedule release model, otherwise known as t
 
 We used to have an intermmediate branch, aurora, in between central and beta but that was brought to end-of-life during April-May 2017.
 
-4. What is a partner repack change for FF?
+4. *What is a partner repack change for FF?*
 
 Partner repacks refer to 3rd party customized branded versions of Firefox that Mozilla is taking care of for some of its clients. With some exceptions, most of the partner reconfigs lie under private repositories.
 Mostly, the partner repacks don't need too much of RelEng interference as all bits are held under private git repos and are directly handled by the partnering companies
 
-5. Is there acalendar-based release scheduled for Thunderbird as for Firefox?
+5. *Is there acalendar-based release scheduled for Thunderbird as for Firefox?*
 
 No. It's irregular. Conversations happen on #tbdrivers and TB mailing list and they trigger their release in Ship-it.
 
-6. Why don't I see update_verify_beta for dot releases?
+6. *Why don't I see update_verify_beta for dot releases?*
 
 From time to time, a handful of issues precipitate a dot release. When that happens, its behavior slightly varies from a normal release. A normal release (e.g. 43.0, 44.0, etc) has its RC shipped to beta channel first before making it to release
 channel - for testing purposes, update verify steps are taking place both ways, hence update_verify_release and update_verify_beta steps. Upon successful testing we ship the RC on the beta channel and then on the release channel,
