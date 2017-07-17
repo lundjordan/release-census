@@ -18,13 +18,13 @@ Being releaseduty means a couple of things:
 In order to do an awesome squirrel job, you need to pay attention do a few communication channels. Some of them are quite spammy so please ensure you're enabling good email filters.
 Most of the steps/large milestones of a release are happening via email. Rest of debugging, communication and coordination takes place in a few IRC channels. The automation status is collected mostly on email.
 Therefore, you ought to be present and pay attention to conversations happening in:
-- #releaseduty (main RelEng dedicated communication channel for conversations about releases, debugging and improving)
-- #release-drivers (where QE and RelMan usually coordinate, good to pay attention do this as well)
-- #tbdrivers (where TB drivers discuss Thunderbird releases)
-- #release-notifications (very spammy channel where all release automation notifications are being sent)
-- #release-notifications-dev (occasionally spammy channel where all release automation staging releases notifications are being sent)
-- #releng (public RelEng channel where many non-releaseduty topics are also discussed)
-- #relman (optional - about to be retired soon, where RelMan hangs out around usually)
+- **_#releaseduty_** (main RelEng dedicated communication channel for conversations about releases, debugging and improving)
+- **_#release-drivers_** (where QE and RelMan usually coordinate, good to pay attention do this as well)
+- **_#tbdrivers_** (where TB drivers discuss Thunderbird releases)
+- **_#release-notifications_** (very spammy channel where all release automation notifications are being sent)
+- **_#release-notifications-dev_** (occasionally spammy channel where all release automation staging releases notifications are being sent)
+- **_#releng_** (public RelEng channel where many non-releaseduty topics are also discussed)
+- **_#relman_** (optional - about to be retired soon, where RelMan hangs out around usually)
 
 Moreover, you need these mailing list subscriptions:
 - [release-automation-notifications](https://groups.google.com/a/mozilla.com/forum/?hl=en#!forum/release-automation-notifications)
