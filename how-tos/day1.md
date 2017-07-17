@@ -31,7 +31,7 @@ Moreover, you need these mailing list subscriptions:
 - [release-automation-notifications-dev](https://groups.google.com/a/mozilla.com/forum/#!forum/release-automation-notifications-dev)
 - [releng internal mailing list](release@mozilla.com)
 - [release drivers mailing list](release-drivers@mozilla.org)
-- [TB release drivers mailing list](thunderbird-drivers@mozilla.org)
+- [thunderbird release drivers mailing list](thunderbird-drivers@mozilla.org)
 - [release-automation-notifications-thunderbird](https://mail.mozilla.org/listinfo/release-automation-notifications-thunderbird)
 
 Meeting-wise, there is a bunch of meetings to you need to take part as releaseduty-squirrel. To view those meetings in your calendar you need to subscribe/be added to the following calendars:
