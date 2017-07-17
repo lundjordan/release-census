@@ -34,6 +34,10 @@ Moreover, you need these mailing list subscriptions:
 - [TB release drivers mailing list](thunderbird-drivers@mozilla.org)
 - [release-automation-notifications-thunderbird](https://mail.mozilla.org/listinfo/release-automation-notifications-thunderbird)
 
+Meeting-wise, there is a bunch of meetings to you need to take part as releaseduty-squirrel:
+- Public - Release Engineering (so that you attend the weekly post-mortem meeting)
+- Releases Scheduling (so that you can attend the Tuesday/Thursday channel meetings)
+
 Notes on:
 
 Bugs to be opened in REleases/ RelAut
