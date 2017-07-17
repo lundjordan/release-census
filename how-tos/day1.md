@@ -18,11 +18,11 @@ Being releaseduty means a couple of things:
 In order to do an awesome squirrel job, you need to pay attention do a few communication channels. Some of them are quite spammy so please ensure you're enabling good email filters.
 Most of the steps/large milestones of a release are happening via email. Rest of debugging, communication and coordination takes place in a few IRC channels. The automation status is collected mostly on email.
 Therefore, you ought to be present and pay attention to conversations happening in:
-- **_#releaseduty_** (main RelEng dedicated communication channel for conversations about releases, debugging and improving)
+- **_#releaseduty_** (main RelEng dedicated communication channel for releaseduty)
 - **_#release-drivers_** (where QE and RelMan usually coordinate, good to pay attention do this as well)
 - **_#tbdrivers_** (where TB drivers discuss Thunderbird releases)
 - **_#release-notifications_** (very spammy channel where all release automation notifications are being sent)
-- **_#release-notifications-dev_** (occasionally spammy channel where all release automation staging releases notifications are being sent)
+- **_#release-notifications-dev_** (occasionally spammy channel where all staging releases notifications are being sent)
 - **_#releng_** (public RelEng channel where many non-releaseduty topics are also discussed)
 - **_#relman_** (optional - about to be retired soon, where RelMan hangs out around usually)
 
@@ -34,11 +34,30 @@ Moreover, you need these mailing list subscriptions:
 - [TB release drivers mailing list](thunderbird-drivers@mozilla.org)
 - [release-automation-notifications-thunderbird](https://mail.mozilla.org/listinfo/release-automation-notifications-thunderbird)
 
-Meeting-wise, there is a bunch of meetings to you need to take part as releaseduty-squirrel:
+Meeting-wise, there is a bunch of meetings to you need to take part as releaseduty-squirrel. To view those meetings in your calendar you need to subscribe/be added to the following calendars:
 - Public - Release Engineering (so that you attend the weekly post-mortem meeting)
 - Releases Scheduling (so that you can attend the Tuesday/Thursday channel meetings)
 
-Notes on:
 
-Bugs to be opened in REleases/ RelAut
+## Access
+
+Since releaseduty handles releases, several pieces are obviously protected and private with no public access. In order to do your job, you need to be granted access to a bare minimum:
+- write access to [releasewarrior](https://github.com/mozilla/releasewarrior/) repo
+- r/w access to [Balrog](https://aus4-admin.mozilla.org/)
+- read access to [Ship-it](http://ship-it.mozilla.org/)
+There are a few more other places where access is needed (such as [bouncer](https://bounceradmin.mozilla.com/admin/), etc) but we're trying to keep those access-list short so addings can be done in time depending on necessities.
+
+## Tools
+
+In order to be productive squirrels, we've developed a bunch of tools to help us out. You may consider these as the bread & butter of the releaseduty squirrels:
+- [releasewarrior](https://github.com/mozilla/releasewarrior/) to help us keep track of the releases in flight and generating the post-mortem
+- [tasckluster-cli](https://github.com/taskcluster/taskcluster-client.py) to help us deal with TC jobs (rerun/cancel/etc operations)
+
+## Misc
+
+- issues regarding specific releases/WNP go under [Release Engineering:Releases](https://bugzilla.mozilla.org/enter_bug.cgi?product=Release%20Engineering&component=Releases)
+- issues regarding automation go under [Release Engineering:Release Automation](https://bugzilla.mozilla.org/enter_bug.cgi?product=Release%20Engineering&component=Release%20Automation)
+
+## FAQ
+
 
