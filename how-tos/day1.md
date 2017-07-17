@@ -1,10 +1,10 @@
 # Welcome to releaseduty Day1 checklist and FAQ section!
 
 ## Intro
-If you're reading this page it means that you're ramping up as an official releaseduty squirrel within Mozilla Releng, so please allow us to give you a warm welcome!
+If you're reading this page it means that you're ramping up as an official releaseduty squirrel within Mozilla RelEng, so please allow us to give you a warm welcome!
 
 Releaseduty is a designated pass-the-token role that we assign every 6 weeks to members of the team. Role mainly entails handling all the coordination and communication with other teams (such as QE, RelMan, etc) as well as doing all the
-mechanics to make sure the release workflow is as smooth as possible. While this role can get quite disruptive at times, we prefer this approach of delegating this responsability to a small set of people that can own this, while we shield the others from interruptions so that they can better focus
+mechanics to make sure the release work flow is as smooth as possible. While this role can get quite disruptive at times, we prefer this approach of delegating this responsibility to a small set of people that can own this, while we shield the others from interruptions so that they can better focus
 on improving our automation and work on other RelEng infra-related projects.
 
 Being releaseduty means a couple of things:
@@ -60,7 +60,7 @@ In order to be productive squirrels, we've developed a bunch of tools to help us
 
 ## FAQ
 
-1. *How does the Ship-it workflow work in terms of shipping a new release?*
+1. *How does the Ship-it work flow work in terms of shipping a new release?*
 
 RelMan submits a new release form [here](https://ship-it.mozilla.org/), another RelMan reviews that and once it hits 'Ready' + 'Do eeaat' the release enters the 'Reviewed' section and waits to be run.
 Since there's a `release-runner.sh` script running in a loop on [bm81](https://hg.mozilla.org/build/puppet/file/default/manifests/moco-nodes.pp#l598), there's a max windows of 60 seconds till the job gets its share, following which it enters the 'Running/Complete' table where we can observe its state.
@@ -84,7 +84,7 @@ We used to have an intermmediate branch, aurora, in between central and beta but
 Partner repacks refer to 3rd party customized branded versions of Firefox that Mozilla is taking care of for some of its clients. With some exceptions, most of the partner reconfigs lie under private repositories.
 Mostly, the partner repacks don't need too much of RelEng interference as all bits are held under private git repos and are directly handled by the partnering companies
 
-5. *Is there acalendar-based release scheduled for Thunderbird as for Firefox?*
+5. *Is there calendar-based release scheduled for Thunderbird as for Firefox?*
 
 No. It's irregular. Conversations happen on #tbdrivers and TB mailing list and they trigger their release in Ship-it.
 
