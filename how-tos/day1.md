@@ -22,7 +22,7 @@ Therefore, you ought to be present and pay attention to conversations happening 
 - **_#release-drivers_** (where QE and RelMan usually coordinate, good to pay attention do this as well)
 - **_#tbdrivers_** (where TB drivers discuss Thunderbird releases)
 - **_#release-notifications_** (very spammy channel where all release automation notifications are being sent)
-- **_#release-notifications-dev_** (occasionally spammy channel where all staging releases notifications are being sent)
+- **_#release-notifications-dev_** (spammy channel where all staging releases notifications are being sent)
 - **_#releng_** (public RelEng channel where many non-releaseduty topics are also discussed)
 - **_#relman_** (optional - about to be retired soon, where RelMan hangs out around usually)
 
@@ -35,8 +35,8 @@ Moreover, you need these mailing list subscriptions:
 - [release-automation-notifications-thunderbird](https://mail.mozilla.org/listinfo/release-automation-notifications-thunderbird)
 
 Meeting-wise, there is a bunch of meetings to you need to take part as releaseduty-squirrel. To view those meetings in your calendar you need to subscribe/be added to the following calendars:
-- Public - Release Engineering (so that you attend the weekly post-mortem meeting)
-- Releases Scheduling (so that you can attend the Tuesday/Thursday channel meetings)
+- **_Public - Release Engineering_** (so that you attend the weekly post-mortem meeting)
+- **_Releases Scheduling_** (so that you can attend the Tuesday/Thursday channel meetings)
 
 
 ## Access
@@ -55,8 +55,8 @@ In order to be productive squirrels, we've developed a bunch of tools to help us
 
 ## Misc
 
-- issues regarding specific releases/WNP go under [Release Engineering:Releases](https://bugzilla.mozilla.org/enter_bug.cgi?product=Release%20Engineering&component=Releases)
-- issues regarding automation go under [Release Engineering:Release Automation](https://bugzilla.mozilla.org/enter_bug.cgi?product=Release%20Engineering&component=Release%20Automation)
+- issues regarding specific releases/WNP are filed under [Release Engineering:Releases](https://bugzilla.mozilla.org/enter_bug.cgi?product=Release%20Engineering&component=Releases)
+- issues regarding automation are filed under [Release Engineering:Release Automation](https://bugzilla.mozilla.org/enter_bug.cgi?product=Release%20Engineering&component=Release%20Automation)
 
 ## FAQ
 
