@@ -6,9 +6,9 @@ components that form our release automation pipeline. It's expected that from ti
 to make significant changes to our release automation, staging releases need to be performed before we flip the changes to
 production. This is where the releaseduty knowledge comes to rescue!
 
-Historically, we have been using staging releases mostly to test beta1 of a new cycle. That is because a beta release is our most
+Historically, we have been using staging releases mostly to test `beta1` of a new cycle. That is because a beta release is our most
 common type of release and it is the one we usually start any transformation process with. We used it when we switched to `release
-promotion` but also for `tcmigration` projects. This how-to page assumes the same but a different type of release should behave somewhat
+promotion` but also for `tcmigration` projects. This how-to page assumes the same, but a different type of release should behave somewhat
 similar. So mainly rather larger changes to the code base, changes that actually impose a staging release beforehand.
 
 ## Simulation project branch
@@ -16,8 +16,8 @@ similar. So mainly rather larger changes to the code base, changes that actually
 Project branch `jamun` has traditionally been our culprit to simulate `beta`. We used `date` for simulating nightlies from `central`.
 
 Use cases:
-- for `central` -> `beta` staging release we would use `from_repo_url` = `central`  and `to_repo_url` = jamun
-- for `date` -> `central -> `beta` (stuff that lands in `central` and right after that goes in `beta`) staging release we would use `from_repo_url` = `date`  and `to_repo_url` = jamun
+- for `central` -> `beta` staging release we would use `from_repo_url` = `central`  and `to_repo_url` = `jamun`
+- for `date` -> `central` -> `beta` (stuff that lands in `central` and right after that goes in `beta`) staging release we would use `from_repo_url` = `date`  and `to_repo_url` = `jamun`
 
 ## Merge scripts
 
@@ -60,13 +60,13 @@ hg push
 
 ## Staging tools
 
-- [staging Ship-it](https://ship-it-dev.allizom.org/)
-- [release runner dev](https://hg.mozilla.org/build/puppet/file/default/manifests/moco-nodes.pp#l633)
-- release automation notificats [group](https://groups.google.com/a/mozilla.com/forum/?hl=en#!forum/release-automation-notifications-dev) and #release-notifications-dev IRC channel
-- [balrog staging](https://balrog-admin.stage.mozaws.net/)
+- staging [Ship-it](https://ship-it-dev.allizom.org/)
+- staging [release runner](https://hg.mozilla.org/build/puppet/file/default/manifests/moco-nodes.pp#l633)
+- release automation notificats [group](https://groups.google.com/a/mozilla.com/forum/?hl=en#!forum/release-automation-notifications-dev) and `#release-notifications-dev` IRC channel
+- staging [balrog](https://balrog-admin.stage.mozaws.net/)
 
-A note on Balrog staging. Historically, we've had issues with plugging the staging instance to
-the staging releases, so we used another workaround:
+A note on Balrog. Historically, we've had issues with plugging the staging instance to
+the staging release pipeline, so we used another workaround:
 - from aws console, create a new ubuntu AWS instance
 - login to it and clone Balrog [codebase](https://github.com/mozilla/balrog)
 - follow the [installation](https://github.com/mozilla/balrog#installation) process
