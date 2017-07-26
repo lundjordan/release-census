@@ -54,14 +54,15 @@ python mozharness-central/scripts/merge_day/gecko_migration.py -c merge_day/cent
 4. The script should have created a diff. Check that everything is okay and push to jamun
 ```sh
 hg -R build/jamun diff
+hg -R build/jamun commit -m "Uplift from central to jamun"
 hg out -r . jamun
 hg push
 ```
 
 ## Staging tools
 
-- staging [Ship-it](https://ship-it-dev.allizom.org/)
-- staging [release runner](https://hg.mozilla.org/build/puppet/file/default/manifests/moco-nodes.pp#l633)
+- dev [Ship-it](https://ship-it-dev.allizom.org/)
+- staging [release runner](https://dxr.mozilla.org/build-central/rev/5f83e0516fc449586bbce4db4eb759f6cede8781/puppet/manifests/moco-nodes.pp#633)
 - release automation notificats [group](https://groups.google.com/a/mozilla.com/forum/?hl=en#!forum/release-automation-notifications-dev) and `#release-notifications-dev` IRC channel
 - staging [balrog](https://balrog-admin.stage.mozaws.net/)
 
@@ -69,15 +70,52 @@ A note on Balrog. Historically, we've had issues with plugging the staging insta
 the staging release pipeline, so we used another workaround:
 - from aws console, create a new ubuntu AWS instance
 - login to it and clone Balrog [codebase](https://github.com/mozilla/balrog)
+- before starting the balrog process, we need to set `STAGING=1` to make balrog accept `http://ftp.stage.mozaws.net` in the blobs, something like
+```diff
+diff --git a/docker-compose.yml b/docker-compose.yml
+index a0dee5a1..9c712750 100644
+--- a/docker-compose.yml
++++ b/docker-compose.yml
+@@ -29,17 +29,17 @@ services:
+       # Grab mail information from the local environment
+       - SMTP_HOST
+       - SMTP_PORT
+       - SMTP_USERNAME
+       - SMTP_PASSWORD
+       - SMTP_TLS
+       - NOTIFY_TO_ADDR
+       - NOTIFY_FROM_ADDR
+-      - STAGING
++      - STAGING=1
+     healthcheck:
+         test: nc -z -v balrogadmin 7070
+         interval: 5s
+         timeout: 30s
+         retries: 10
+
+
+   balrogpub:
+```
 - follow the [installation](https://github.com/mozilla/balrog#installation) process
-- point that instance in all configs [mozharnss configs](https://dxr.mozilla.org/mozilla-central/source/testing/mozharness/configs/releases/) that need it. Sample [here](https://dxr.mozilla.org/mozilla-central/source/testing/mozharness/configs/releases/dev_updates_firefox_beta.py#23)
+- point that instance in all configs [mozharnss configs](https://dxr.mozilla.org/mozilla-central/source/testing/mozharness/configs/releases/) that need it. Sample [here](https://dxr.mozilla.org/mozilla-central/rev/7d2e89fb92331d7e4296391213c1e63db628e046/testing/mozharness/configs/releases/dev_updates_firefox_beta.py#23)
 
 ## Staging configs
 
-- release runner will consume [project branch configs](https://dxr.mozilla.org/build-central/source/buildbot-configs/mozilla/project_branches.py#114)
+- release runner will consume [project branch configs](https://dxr.mozilla.org/build-central/rev/92614acc90330edf360d97d8575b7e917ddc43b2/buildbot-configs/mozilla/project_branches.py#114)
 - mozharness [configs](https://dxr.mozilla.org/mozilla-central/source/testing/mozharness/configs/releases/) - all configs with `dev` prefix
-- in order to avoid pushing patcher configs changes/tags to *real* [tools](http://hg.mozilla.org/build/tools/) repo, please point to a user fork. You can reuse rail's [tools repo](https://hg.mozilla.org/users/raliiev_mozilla.com/tools)
+- in order to avoid pushing patcher configs changes/tags to *real* [tools](http://hg.mozilla.org/build/tools/) repo, please point to a user fork. You can reuse rail's [tools repo](https://hg.mozilla.org/users/raliiev_mozilla.com/tools-fake/)
+
+A note on creating custom tools repo.
+Rather than reusing an existing fellow RelEnger tools repo, you should clone your own to avoid missing permissions sort-of-issues.
+That can be done in the following way (more on this [here](https://wiki.mozilla.org/Release:Release_Automation_on_Mercurial:Staging_Specific_Notes#Setup_staging_repos)):
+
+```sh
+ssh hg.mozilla.org clone tools-fake build/tools
+# Will show: Please wait.  Cloning /build/tools to /users/jlorenzo_mozilla.com/tools-fake
+```
+
 
 ## Misc
 
-TODO - Release runner is smart. It only takes into account the Tier1 stuff.
+- TODO Release runner is smart. It only takes into account the Tier1 stuff.
+- Update verify tests are flaky and we need to invest some time to make them work. Our assumption is that we need to better flip variables [here](https://dxr.mozilla.org/mozilla-central/rev/7d2e89fb92331d7e4296391213c1e63db628e046/testing/mozharness/configs/releases/dev_updates_firefox_beta.py)
