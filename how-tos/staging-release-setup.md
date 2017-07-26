@@ -6,7 +6,7 @@ components that form our release automation pipeline. It's expected that from ti
 to make significant changes to our release automation, staging releases need to be performed before we flip the changes to
 production. This is where the releaseduty knowledge comes to rescue!
 
-Historically, we have been using staging releases mostly to test `beta1` of a new cycle. That is because a beta release is our most
+Historically, we have been using staging releases mostly to test `beta 1` of a new cycle. That is because a `beta` release is our most
 common type of release and it is the one we usually start any transformation process with. We used it when we switched to `release
 promotion` but also for `tcmigration` projects. This how-to page assumes the same, but a different type of release should behave somewhat
 similar. So mainly rather larger changes to the code base, changes that actually impose a staging release beforehand.
@@ -105,8 +105,8 @@ index a0dee5a1..9c712750 100644
 - mozharness [configs](https://dxr.mozilla.org/mozilla-central/source/testing/mozharness/configs/releases/) - all configs with `dev` prefix
 - in order to avoid pushing patcher configs changes/tags to *real* [tools](http://hg.mozilla.org/build/tools/) repo, please point to a user fork. You can reuse rail's [tools repo](https://hg.mozilla.org/users/raliiev_mozilla.com/tools-fake/)
 
-A note on creating custom tools repo.
-Rather than reusing an existing fellow RelEnger tools repo, you should clone your own to avoid missing permissions sort-of-issues.
+A note on creating custom `tools` repo.
+Rather than reusing an existing fellow RelEnger `tools` repo, you should clone your own to avoid missing permissions sort-of-issues.
 That can be done in the following way (more on this [here](https://wiki.mozilla.org/Release:Release_Automation_on_Mercurial:Staging_Specific_Notes#Setup_staging_repos)):
 
 ```sh
