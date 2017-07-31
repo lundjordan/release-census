@@ -55,20 +55,48 @@ python mozharness-central/scripts/merge_day/gecko_migration.py -c merge_day/cent
 ```sh
 hg -R build/jamun diff
 hg -R build/jamun commit -m "Uplift from central to jamun"
-hg out -r . jamun
-hg push
+hg -R build/jamun out -r . jamun
+hg -R build/jamun push
 ```
 
 ## Staging tools
 
 - dev [Ship-it](https://ship-it-dev.allizom.org/)
 - staging [release runner](https://dxr.mozilla.org/build-central/rev/5f83e0516fc449586bbce4db4eb759f6cede8781/puppet/manifests/moco-nodes.pp#633)
-- release automation notificats [group](https://groups.google.com/a/mozilla.com/forum/?hl=en#!forum/release-automation-notifications-dev) and `#release-notifications-dev` IRC channel
-- staging [balrog](https://balrog-admin.stage.mozaws.net/)
+- release automation notifications [group](https://groups.google.com/a/mozilla.com/forum/?hl=en#!forum/release-automation-notifications-dev) and `#release-notifications-dev` IRC channel
+- ~~staging [balrog](https://balrog-admin.stage.mozaws.net/)~~ Spawn your own balrog instance. See dedicated appendix below.
+- point that instance in all configs [mozharnss configs](https://dxr.mozilla.org/mozilla-central/source/testing/mozharness/configs/releases/) that need it. Sample [here](https://dxr.mozilla.org/mozilla-central/rev/7d2e89fb92331d7e4296391213c1e63db628e046/testing/mozharness/configs/releases/dev_updates_firefox_beta.py#23)
+
+## Staging configs
+
+- release runner will consume [project branch configs](https://dxr.mozilla.org/build-central/rev/92614acc90330edf360d97d8575b7e917ddc43b2/buildbot-configs/mozilla/project_branches.py#114)
+- mozharness [configs](https://dxr.mozilla.org/mozilla-central/source/testing/mozharness/configs/releases/) - all configs with `dev` prefix
+- in order to avoid pushing patcher configs changes/tags to *real* [tools](http://hg.mozilla.org/build/tools/) repo, please point to a user fork. You can reuse rail's [tools repo](https://hg.mozilla.org/users/raliiev_mozilla.com/tools-fake/)
+
+A note on creating custom `tools` repo.
+Rather than reusing an existing fellow RelEnger `tools` repo, you should clone your own to avoid missing permissions sort-of-issues.
+That can be done in the following way (more on this [here](https://wiki.mozilla.org/Release:Release_Automation_on_Mercurial:Staging_Specific_Notes#Setup_staging_repos)):
+
+```sh
+ssh hg.mozilla.org clone tools-fake build/tools
+# Will show: Please wait.  Cloning /build/tools to /users/jlorenzo_mozilla.com/tools-fake
+```
+
+## Misc
+
+- TODO Release runner is smart. It only takes into account the Tier1 stuff.
+- Update verify tests are flaky and we need to invest some time to make them work. Our assumption is that we need to better flip variables [here](https://dxr.mozilla.org/mozilla-central/rev/7d2e89fb92331d7e4296391213c1e63db628e046/testing/mozharness/configs/releases/dev_updates_firefox_beta.py)
+
+## Appendix: Start up your own Balrog instance
 
 A note on Balrog. Historically, we've had issues with plugging the staging instance to
 the staging release pipeline, so we used another workaround:
-- from aws console, create a new ubuntu AWS instance
+- From aws console, create a new ubuntu AWS instance
+  - Select the datacenter "us-east-1"
+  - Pick the latest Ubuntu provided by AWS
+  - Instance Type: Choose m3.medium. You can't choose a t2 because of the network (see next point).
+  - Network: Pick "Launch into EC2-Classic". If you run it under a VPC, you won't be able to reach the machine outside of the internal VPN. Moreover, it won't allocate a DNS entry. t2 instances only allow VPC networks.
+  - Security group: Choose an existing security group named "balrog-dev". It will open the ports needed for you and release promotion to access Balrog
 - login to it and clone Balrog [codebase](https://github.com/mozilla/balrog)
 - before starting the balrog process, we need to set `STAGING=1` to make balrog accept `http://ftp.stage.mozaws.net` in the blobs, something like
 ```diff
@@ -96,26 +124,7 @@ index a0dee5a1..9c712750 100644
 
    balrogpub:
 ```
-- follow the [installation](https://github.com/mozilla/balrog#installation) process
-- point that instance in all configs [mozharnss configs](https://dxr.mozilla.org/mozilla-central/source/testing/mozharness/configs/releases/) that need it. Sample [here](https://dxr.mozilla.org/mozilla-central/rev/7d2e89fb92331d7e4296391213c1e63db628e046/testing/mozharness/configs/releases/dev_updates_firefox_beta.py#23)
-
-## Staging configs
-
-- release runner will consume [project branch configs](https://dxr.mozilla.org/build-central/rev/92614acc90330edf360d97d8575b7e917ddc43b2/buildbot-configs/mozilla/project_branches.py#114)
-- mozharness [configs](https://dxr.mozilla.org/mozilla-central/source/testing/mozharness/configs/releases/) - all configs with `dev` prefix
-- in order to avoid pushing patcher configs changes/tags to *real* [tools](http://hg.mozilla.org/build/tools/) repo, please point to a user fork. You can reuse rail's [tools repo](https://hg.mozilla.org/users/raliiev_mozilla.com/tools-fake/)
-
-A note on creating custom `tools` repo.
-Rather than reusing an existing fellow RelEnger `tools` repo, you should clone your own to avoid missing permissions sort-of-issues.
-That can be done in the following way (more on this [here](https://wiki.mozilla.org/Release:Release_Automation_on_Mercurial:Staging_Specific_Notes#Setup_staging_repos)):
-
-```sh
-ssh hg.mozilla.org clone tools-fake build/tools
-# Will show: Please wait.  Cloning /build/tools to /users/jlorenzo_mozilla.com/tools-fake
-```
-
-
-## Misc
-
-- TODO Release runner is smart. It only takes into account the Tier1 stuff.
-- Update verify tests are flaky and we need to invest some time to make them work. Our assumption is that we need to better flip variables [here](https://dxr.mozilla.org/mozilla-central/rev/7d2e89fb92331d7e4296391213c1e63db628e046/testing/mozharness/configs/releases/dev_updates_firefox_beta.py)
+- Installer the latest versions of docker and docker-compose. During July 2017, the docker version present in the repo weren't compatible with docker-compose.yml in balrog.
+  - [Docker installation](https://docs.docker.com/engine/installation/linux/docker-ce/ubuntu/). Don't forget the [post installation steps](https://docs.docker.com/engine/installation/linux/linux-postinstall/) which require you to log out and log back in.
+  - [Docker-compose installation](https://docs.docker.com/compose/install/).
+- follow the [installation](https://github.com/mozilla/balrog#installation) process.
