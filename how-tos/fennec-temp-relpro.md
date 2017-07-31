@@ -89,3 +89,12 @@ sudo su - cltbld
 cd /builds/l10n-bumper
 /tools/python27/bin/python2.7 mozharness/scripts/l10n_bumper.py -c l10n_bumper/mozilla-beta.py
 ```
+
+#### Procedure to ship Fennec, even though PushApk can't work
+
+Made official by [bug 1384083](https://bugzilla.mozilla.org/show_bug.cgi?id=1384083).
+
+1. Release Duty folks agree that PushApk can't publish anything because of reason X.
+2. Ask Release Management to publish the APK manually (that is to say with [mozapkpublisher](https://github.com/mozilla-releng/mozapkpublisher), on a local computer). For historical reasons[3], some people in the Release Management team have the rights to publish APKs onto Google Play. See [documented technical steps](https://github.com/mozilla-releng/mozapkpublisher#what-to-do-when-pushapk_scriptworker-doesnt-work).
+3. If a technical issue comes up, Release Management should ask Release Engineering[4] to publish the APK manually. This may require Release Management to grant write access[5] to Release Engineering for a given period of time.
+4. If that doesn't work, Release Duty should ask Release Management to publish the APK via the Web interface. This way is the riskiest one. MozApkPublisher (and pushapk_scriptworker) [provides extra checks](https://johanlorenzo.github.io/blog/2017/06/07/part-2-how-mozilla-publishes-apks-onto-google-play-store-in-a-reasonably-secure-and-automated-way.html#4-mozapkpublisher-locales-and-google-play) that Google Play doesn't do. Somebody from Release Management may have to grant access Release Management to upload via the web interface.
