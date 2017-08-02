@@ -82,5 +82,6 @@ ORDERED_HUMAN_TASKS = (
     'pushapk',
     'publish',
     'signoff',
+    'signoff2',
     'beta',
 )
