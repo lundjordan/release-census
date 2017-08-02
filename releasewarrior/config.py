@@ -80,7 +80,7 @@ ORDERED_HUMAN_TASKS = (
     'cdntest',
     'mirrors',
     'pushapk',
-    'signoff',
     'publish',
+    'signoff',
     'beta',
 )
