@@ -84,4 +84,5 @@ ORDERED_HUMAN_TASKS = (
     'signoff',
     'signoff2',
     'beta',
+    'wnp',
 )
