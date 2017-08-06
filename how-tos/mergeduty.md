@@ -62,6 +62,7 @@ hg -R build/mozilla-release diff
 
 1. [Close mozilla-beta](https://mozilla-releng.net/treestatus/show/mozilla-beta). Check "Remember this change to undo later".
 1. Run the [no-op trial run](#day-1-merge-prep-day) one more time, and show the diff to your co-releaseduty.
+1. The diff for `release` should be fairly similar to [this](https://hg.mozilla.org/releases/mozilla-release/rev/70e32e6bf15e)
 1. Push your changes:
 ```sh
 python mozharness-central/scripts/merge_day/gecko_migration.py \
@@ -69,6 +70,7 @@ python mozharness-central/scripts/merge_day/gecko_migration.py \
   --create-virtualenv --commit-changes --push
 ```
 :warning: If an issue comes up during this phase, you may not be able to ran this command (or the no-op one) correctly. You may need to publicly backout some tags/changesets to get back in a known state.
+1. Upon pushing, `beta` should get a version bump consisting of a `commit` like [this](https://hg.mozilla.org/releases/mozilla-beta/rev/52cefa439a7d) and a `tag` like [this](https://hg.mozilla.org/releases/mozilla-beta/rev/907a3a5c6fed)
 1. Verify changesets are visible on [hg pushlog](https://hg.mozilla.org/releases/mozilla-release/pushloghtml) and [Treeherder]( https://treeherder.mozilla.org/#/jobs?repo=mozilla-release). It may take a couple of minutes to appear.
 
 ### Bump ESR version
@@ -134,15 +136,28 @@ python mozharness-central/scripts/merge_day/gecko_migration.py -c merge_day/cent
 It's almost identical to beta to release:
 
 1. Ping l10n folks in #releng (usually `Pike`) and send them a heads-up that we're about to perform the merge so that they can coordinate and sync timing of the l10n side of things
-1. (be aware that for this step, LDAP credentials will be asked for the trigger-builders step)
+1. Make sure you're up-to-date with tip of `central`
 ```sh
 # go to merge_day directory, created on day 1
 python mozharness-central/scripts/merge_day/gecko_migration.py -c merge_day/central_to_beta.py
-hg -R build/mozilla-beta diff # Validate it with someone else
+```
+1. The script should have created a diff:
+```sh
+hg -R build/mozilla-beta diff
+```
+1. Show the diff to your co-releaseduty for review
+1. The diff for `beta` should be fairly similar to [this](https://hg.mozilla.org/releases/mozilla-beta/rev/2191d7f87e2e)
+1. Push your changes:
+```sh
 python mozharness-central/scripts/merge_day/gecko_migration.py \
   -c selfserve/production.py -c merge_day/central_to_beta.py \
-  --create-virtualenv --commit-changes --push --trigger-builders
+  --create-virtualenv --commit-changes --push
 ```
+1. Upon pushing, `central` should get a version bump consisting of a `commit` like [this](https://hg.mozilla.org/mozilla-central/rev/52285ea5e54c) and a `tag` like [this](https://hg.mozilla.org/mozilla-central/rev/d6c0df73518b)
+1. Verify changesets are visible on [hg pushlog](https://hg.mozilla.org/releases/mozilla-beta/pushloghtml) and [Treeherder]( https://treeherder.mozilla.org/#/jobs?repo=mozilla-beta). It may take a couple of minutes to appear.
+
+### Run the l10n bumper
+
 1. run l10n-bumper against beta
 ```
 ssh buildbot-master01.bb.releng.use1.mozilla.com
@@ -150,12 +165,13 @@ sudo su - cltbld
 cd /builds/l10n-bumper
 python2.7 mozharness/scripts/l10n_bumper.py -c mozharness/configs/l10n_bumper/mozilla-beta.py --ignore-closed-tree
 ```
-1. Verify changesets are visible on [hg pushlog](https://hg.mozilla.org/releases/mozilla-beta/pushloghtml) and [Treeherder]( https://treeherder.mozilla.org/#/jobs?repo=mozilla-beta). It may take a couple of minutes to appear.
 1. Ping l10n folks in #releng (usually `Pike`) and send them a heads-up that RelEng side of migration is completed
+
+### Trigger new nightlies
+
 1. Trigger nightlies for central. This can be done by:
     1. trigger [nightly-desktop/mozilla-central](https://tools.taskcluster.net/hooks/#project-releng/nightly-desktop%252fmozilla-central) hook
     1. trigger [nightly-fennec/mozilla-central](https://tools.taskcluster.net/hooks/#project-releng/nightly-fennec%252fmozilla-central) hook
-    1. go to [BuildAPI](https://secure.pub.build.mozilla.org/buildapi/self-serve/mozilla-central) and look for `Create new nightly builds on mozilla-central revision`. Fill in the latest nightly revision and trigger the nightlies!
 1. Tell sheriffs this migration is done either by popping a short message in #sheriffs or ping the `<handle>|sheriffduty` person from #releng.
 
 ### Update wikis
@@ -194,7 +210,7 @@ Entries in the wiki have been also updated.
 
 ### Bump bouncer versions
 
-1. When we have good nightlies from `mozilla-central` with the new version, update the [bouncer](https://bounceradmin.mozilla.com) locations for:
+1. When we have good nightlies from `mozilla-central` with the new version, update the [bouncer](https://bounceradmin.mozilla.com) locations to reflect the new version for following aliases:
     1. [firefox-nightly-latest](https://bounceradmin.mozilla.com/admin/mirror/location/?product__id__exact=2005)
     1. [firefox-nightly-latest-ssl](https://bounceradmin.mozilla.com/admin/mirror/location/?product__id__exact=6508)
     1. [firefox-nightly-latest-l10n](https://bounceradmin.mozilla.com/admin/mirror/location/?product__id__exact=6506)
@@ -202,6 +218,8 @@ Entries in the wiki have been also updated.
     1. [firefox-nightly-stub](https://bounceradmin.mozilla.com/admin/mirror/location/?product__id__exact=6509)
     1. [firefox-nightly-stub-l10n](https://bounceradmin.mozilla.com/admin/mirror/location/?product__id__exact=6512)
 
+
+:warning: Be careful on how you make changes to bouncer entries. If it is just the version that gets bumped, that's totally fine but if you also need to change some installer names or anything alike, `space` needs to be encoded to `%20%` and such. See [bug 1386765](https://bugzilla.mozilla.org/show_bug.cgi?id=1386765) for what happened during 57 57 nightlies migration.
 NB: it is expected that the two stub products have a win and win64 location which both point to the same location. We don't have a win64 stub installer, instead the mislabeled 32bit stub selects the correct full installer at runtime.
 
 ### Trim bouncer's Check Now list
