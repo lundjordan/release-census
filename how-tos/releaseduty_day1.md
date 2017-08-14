@@ -51,7 +51,7 @@ There are a few more other places where access is needed (such as [bouncer](http
 
 In order to be productive squirrels, we've developed a bunch of tools to help us out. You may consider these as the bread & butter of the releaseduty squirrels:
 - [releasewarrior](https://github.com/mozilla/releasewarrior/) to help us keep track of the releases in flight and generating the post-mortem
-- [tasckluster-cli](https://github.com/taskcluster/taskcluster-client.py) to help us deal with TC jobs (rerun/cancel/etc operations)
+- [taskcluster-cli](https://github.com/taskcluster/taskcluster-client.py) to help us deal with TC jobs (rerun/cancel/etc operations)
 
 ## Misc
 
