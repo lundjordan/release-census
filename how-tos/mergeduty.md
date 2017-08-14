@@ -54,7 +54,7 @@ hg -R build/mozilla-release diff
 ### Reconfigs part 1
 
 1. Look at the merge day bug and see if patches need to land at this stage.
-1. Land "patch 1" to `default` branch, wait for tests to run and confirm they pass in #releng
+1. Land "patch 1" to `default` branch, wait for tests to run and confirm they pass in `#releng`
 1. Wait 1 hour for the reconfig to happen (via cron job). If you can't wait, ask for a manual reconfig to buildduty folks.
 1. Wait for the go-to-merge email in release-drivers
 
@@ -135,7 +135,7 @@ python mozharness-central/scripts/merge_day/gecko_migration.py -c merge_day/cent
 
 It's almost identical to beta to release:
 
-1. Ping l10n folks in #releng (usually `Pike`) and send them a heads-up that we're about to perform the merge so that they can coordinate and sync timing of the l10n side of things
+1. Ping l10n folks in `#releng` (usually `Pike`) and send them a heads-up that we're about to perform the merge so that they can coordinate and sync timing of the l10n side of things
 1. Make sure you're up-to-date with tip of `central`
 ```sh
 # go to merge_day directory, created on day 1
@@ -165,7 +165,7 @@ sudo su - cltbld
 cd /builds/l10n-bumper
 python2.7 mozharness/scripts/l10n_bumper.py -c mozharness/configs/l10n_bumper/mozilla-beta.py --ignore-closed-tree
 ```
-1. Ping l10n folks in #releng (usually `Pike`) and send them a heads-up that RelEng side of migration is completed
+1. Ping l10n folks in `#releng` (usually `Pike`) and send them a heads-up that RelEng side of migration is completed
 
 ### Trigger new nightlies
 
@@ -176,7 +176,7 @@ python2.7 mozharness/scripts/l10n_bumper.py -c mozharness/configs/l10n_bumper/mo
 
 ### Update wikis
 
-1.
+1. Updating is done automatically with the proper scripts at hand:
 ```sh
 wget https://hg.mozilla.org/build/tools/raw-file/default/buildfarm/maintenance/wiki_functions.sh
 wget https://hg.mozilla.org/build/tools/raw-file/default/buildfarm/maintenance/update_merge_day_wiki.sh
@@ -197,7 +197,7 @@ NEW_ESR_VERSION=52  # Only if a new ESR comes up (for instance 52.0esr)
 
 ### Send merge completion email
 
-Reply to the "please merge m-c => m-b" email. CC `thunderbird-drivers@mozilla.org` and `sheriffs@mozilla.org`.  The content should be like:
+Reply to the "please merge m-c => m-b" email. **Please make sure you CC** `thunderbird-drivers@mozilla.org` and `sheriffs@mozilla.org`.  The content should be like:
 ```
 gecko versions are now as follows:
     m-c = 56
@@ -219,7 +219,8 @@ Entries in the wiki have been also updated.
     1. [firefox-nightly-stub-l10n](https://bounceradmin.mozilla.com/admin/mirror/location/?product__id__exact=6512)
 
 
-:warning: Be careful on how you make changes to bouncer entries. If it is just the version that gets bumped, that's totally fine but if you also need to change some installer names or anything alike, `space` needs to be encoded to `%20%` and such. See [bug 1386765](https://bugzilla.mozilla.org/show_bug.cgi?id=1386765) for what happened during 57 57 nightlies migration.
+:warning: Be careful on how you make changes to bouncer entries. If it is just the version that gets bumped, that's totally fine, but if you also need to change some installer names or anything alike, `space` needs to be encoded to `%20%` and such. See [bug 1386765](https://bugzilla.mozilla.org/show_bug.cgi?id=1386765) for what happened during 57 nightlies migration.
+
 NB: it is expected that the two stub products have a win and win64 location which both point to the same location. We don't have a win64 stub installer, instead the mislabeled 32bit stub selects the correct full installer at runtime.
 
 ### Trim bouncer's Check Now list
