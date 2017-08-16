@@ -35,8 +35,8 @@ Moreover, you need these mailing list subscriptions:
 - [release-automation-notifications-thunderbird](https://mail.mozilla.org/listinfo/release-automation-notifications-thunderbird)
 
 Meeting-wise, there is a bunch of meetings to you need to take part as releaseduty-squirrel. To view those meetings in your calendar you need to subscribe/be added to the following calendars:
-- **_Public - Release Engineering_** (so that you attend the weekly post-mortem meeting)
-- [Releases Scheduling](https://calendar.google.com/calendar/embed?src=mozilla.com_dbq84anr9i8tcnmhabatstv5co@group.calendar.google.com) (so that you can attend the Tuesday/Thursday channel meetings)
+- [Public - Release Engineering](https://calendar.google.com/calendar/embed?src=mozilla.com_2d32343333353036312d393737%40resource.calendar.google.com) (so that you attend the weekly post-mortem meeting)
+- [Releases Scheduling](https://calendar.google.com/calendar/embed?src=mozilla.com_dbq84anr9i8tcnmhabatstv5co@group.calendar.google.com) (so that you can attend the Tuesday/Thursday channel meetings. You can add it following RelMan's [docs](https://wiki.mozilla.org/Release_Management#Calendar_Updating))
 
 
 ## Access
