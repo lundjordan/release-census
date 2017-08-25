@@ -55,7 +55,7 @@ hg -R build/mozilla-release diff
 
 1. Look at the merge day bug and see if patches need to land at this stage.
 1. Land "patch 1" to `default` branch, wait for tests to run and confirm they pass in `#releng`
-1. Wait 1 hour for the reconfig to happen (via cron job). If you can't wait, ask for a manual reconfig to buildduty folks.
+1. Wait 1 hour for the reconfig to happen (via cron job). If you can't wait, ask for a manual reconfig to buildduty folks or do it yourself. See appendix for dedicated instructions on how to do that.
 1. Wait for the go-to-merge email in release-drivers
 
 ### Merge beta to release
@@ -229,3 +229,39 @@ NB: it is expected that the two stub products have a win and win64 location whic
 1. Visit the [list of check now enabled products](https://bounceradmin.mozilla.com/admin/mirror/product/?all=&checknow__exact=1)
 1. you should leave all current and upcoming releases enabled, as well as the updates for watershed releases. Typically this is about 100 products
 1. Select all the old releases not covered above, and use the 'Remove Check Now on selected products' option in the Action dropdown
+
+
+## Appendix: Perform a manual reconfig
+
+A note on reconfigs. If you land any changes to [buildbotcustom](http://hg.mozilla.org/build/buildbotcustom/) or [buildbot-configs](https://hg.mozilla.org/build/buildbot-configs/) repos, you'd need the following.
+
+1. Push your changes to `default` branch (either changes to both of the repos or just one)
+2. Dump and complete the contents of this file under `~/.reconfig/config` with your own credentials
+```
+# Needed if updating wiki - note the wiki does *not* use your LDAP credentials...
+export WIKI_USERNAME='Joe Doe'
+export WIKI_PASSWORD='********'
+
+# Needed if updating Bugzilla bugs to mark them as in production - *no* Persona integration - must be a native Bugzilla account...
+# Details for the 'Release Engineering SlaveAPI Service' <slaveapi@mozilla.releng.tld> Bugzilla user can be found in the RelEng
+# private repo, in file passwords/slaveapi-bugzilla.txt.gpg (needs decrypting with an approved gpg key).
+export BUGZILLA_USERNAME='slaveapi@mozilla.releng.tld'
+export BUGZILLA_PASSWORD='*****'
+```
+2. Run reconfig. This will:
+* clone locally and merge `default` to `production` for [buildbotcustom](http://hg.mozilla.org/build/buildbotcustom/)
+* clone and merge `default` to `production` for [buildbot-configs](https://hg.mozilla.org/build/buildbot-configs/)
+* perform a forced reconfig
+* update wikipedia with details about date/time of the reconfig
+* (Attention! Won't happen if you run script with `-b` option) Update Bugzilla bugs for patches that just went live to production
+
+```sh
+now="$(date +'%d-%m-%Y')"
+# create a temporary directory where all the files and clones are downloaded
+mkdir "$now
+# (optional if not having it already)
+hg clone http://hg.mozilla.org/build/tools/
+bash tools/buildfarm/maintenance/end_to_end_reconfig.sh -b -r $now`
+```
+
+Ever since Bugzilla turned on the 2FA, the auth is troublous so we're not using it anymore for reconfigs, hence the use of `-b` when calling the script.
