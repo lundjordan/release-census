@@ -233,9 +233,10 @@ NB: it is expected that the two stub products have a win and win64 location whic
 
 ## Appendix: Perform a manual reconfig
 
-A note on reconfigs. If you land any changes to [buildbotcustom](http://hg.mozilla.org/build/buildbotcustom/) or [buildbot-configs](https://hg.mozilla.org/build/buildbot-configs/) repos, you'd need the following:
+A note on reconfigs. If you land any changes to [buildbotcustom](http://hg.mozilla.org/build/buildbotcustom/) or [buildbot-configs](https://hg.mozilla.org/build/buildbot-configs/) repos and want them in production, you'd need a reconfig.
+In order to do that, there are a couple of steps needed:
 
-1. Push your changes to `default` branch (either changes to both of the repos or just one)
+1. Push your changes to `default` branch (can be to either of the two repos if to both if you need to change both)
 2. Dump and complete the contents of this file under `~/.reconfig/config` with your own credentials
 ```sh
 # Needed if updating wiki - note the wiki does *not* use your LDAP credentials...
