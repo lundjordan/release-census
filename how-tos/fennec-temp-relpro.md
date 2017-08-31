@@ -45,9 +45,9 @@ hg branch  # make sure this is on default
 hg pull -u # make sure we are up to date.
 source /builds/releaserunner/bin/activate
 # call releasetasks_graph_gen.py with --dry-run and sanity check the graph output that would be submitted
-python releasetasks_graph_gen.py --release-runner-ini=../../../release-runner.ini --branch-and-product-config=/home/cltbld/releasetasks/releasetasks/release_configs/prod_mozilla-${BRANCH}_fennec_full_graph.yml  --version $VERSION --build-number $BUILD_NUMBER --mozilla-revision $REVISION --dry-run
+python releasetasks_graph_gen.py --release-runner-config=../../../release-runner.yml --branch-and-product-config=/home/cltbld/releasetasks/releasetasks/release_configs/prod_mozilla-${BRANCH}_fennec_full_graph.yml  --version $VERSION --build-number $BUILD_NUMBER --mozilla-revision $REVISION --dry-run
 # call releasetasks_graph_gen.py for reals which will submit the graph to Taskcluster
-python releasetasks_graph_gen.py --release-runner-ini=../../../release-runner.ini --branch-and-product-config=/home/cltbld/releasetasks/releasetasks/release_configs/prod_mozilla-${BRANCH}_fennec_full_graph.yml  --version $VERSION --build-number $BUILD_NUMBER --mozilla-revision $REVISION
+python releasetasks_graph_gen.py --release-runner-config=../../../release-runner.yml --branch-and-product-config=/home/cltbld/releasetasks/releasetasks/release_configs/prod_mozilla-${BRANCH}_fennec_full_graph.yml  --version $VERSION --build-number $BUILD_NUMBER --mozilla-revision $REVISION
 ```
 
 * The resulted graphid should be tracked in releasewarrior
