@@ -382,7 +382,7 @@ If pushapk's task expires in graph 1, do the following:
 
 - open the `push-apk/opt` Task's Definition in Raw Data mode and copy that to your clipboard
 - hover over to [taskcluster create](https://tools.taskcluster.net/task-creator/) page
-- trim the existing dummy tutorial task there and paste the task
+- trim the existing dummy tutorial task there and paste the task from your clipboard
 - edit it:
     - update the timestamps (the time there is UTC)
     - make sure you specify at least 1h of deadline so that the task doesn't fail for having a deadline in the past
