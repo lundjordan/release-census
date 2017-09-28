@@ -380,12 +380,15 @@ This works with tasks where the task is on the edge of the graph, and has no dep
 
 If pushapk's task expires in graph 1, do the following:
 
-- select the task definition and copy it
+- open the `push-apk/opt` Task's Definition in Raw Data mode and copy that to your clipboard
+- hover over to [taskcluster create](https://tools.taskcluster.net/task-creator/) page
+- trim the existing dummy tutorial task there and paste the task
 - edit it:
-    - update the timestamps
-    - remove the breakpoint dependency from `task.dependencies`
-    - I'm not sure "edit and recreate" will work, since the taskGroupId will change?
+    - update the timestamps (the time there is UTC)
+    - make sure you specify at least 1h of deadline so that the task doesn't fail for having a deadline in the past
+    - remove all dependencies strings from `task.dependencies` and add instead the taskGroupId string
 - resubmit it
+- since the taskGroupId is still pointing to the original graph, it will show up in the graph there as well as a clone of previous `push-apk/opt`
 
 In the eventuality of a failure of pushapk_scriptworker, there are [instructions to manually publish APKs](https://github.com/mozilla-releng/mozapkpublisher#what-to-do-when-pushapk_scriptworker-doesnt-work).
 
