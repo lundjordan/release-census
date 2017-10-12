@@ -270,3 +270,36 @@ cd tools/buildfarm/maintenance/
 bash end_to_end_reconfig.sh -b -w <(gpg -d ~/merge_duty/reconfig.source.sh.gpg) -r "$now"   # A folder with the current date will be created
 ```
 :warning: You may be prompted for your gpg key to decrypt the file, but end_to_end_reconfig.sh won't wait. Ensure your password is cached.
+
+
+## Appendix: What to do if RelMan asks 1 release to be on 2 trains at the same time
+
+Firefox 57 was atypical: Release Management wanted it to be on both mozilla-central and mozilla-beta. The goal was to ship DevEdition 1 week before the planned merge day. This meant Releng had to:
+1. Merge m-b => m-r (regular merge per the documentation above)
+1. Merge m-c => m-b but leave m-c as is (more details below).
+1. Tag m-c to tell the beta cycle started
+1. Ask sheriffs to create a relbranch in m-b, so the last Fennec beta (56.0b13) could ship in the meantime.
+1. Once RelMan wants to bump Nightly's version number, bump and tag central.
+
+*:information_source: Each command line can be found in the logs of a passed job. Please refer to them. Tags and commit messages are provided in the following examples.*
+
+### Merge m-c => m-b but leave m-c as is.
+
+Some steps in `gecko_migration.py` need to be commented out:
+* [Bump version and touch clobber files](https://searchfox.org/mozilla-central/rev/31606bbabc50b08895d843b9f5f3da938ccdfbbf/testing/mozharness/scripts/merge_day/gecko_migration.py#329-339)
+* [hg tag the origin repo](https://searchfox.org/mozilla-central/rev/31606bbabc50b08895d843b9f5f3da938ccdfbbf/testing/mozharness/scripts/merge_day/gecko_migration.py#466-469)
+
+Then run `gecko_migration.py` as usual.
+
+### Tag m-c
+
+You have to create a [tag like FIREFOX_BETA_57_BASE](https://hg.mozilla.org/mozilla-central/rev/22ed219fb63a).
+
+# Relbranch in m-b for Fennec
+
+Ask sheriffs to create [a relbranch like this one](https://hg.mozilla.org/releases/mozilla-beta/shortlog/FIREFOX_56b13_RELBRANCH). RelMan can specify the relbranch on ship-it and builds starts automatically. However, we had to verify locales we still using the right beta repos ([Bug 1397721](https://bugzil.la/1397721)).
+Moreover, the bump task in release promotion will fail. You have to [bump it manually](https://hg.mozilla.org/releases/mozilla-beta/rev/418902381c4b) and [tag it manually](https://hg.mozilla.org/releases/mozilla-beta/rev/ef07d617a488) too.
+
+# Bump and tag central
+
+A new tag is needed to specify the end of the nightly cycle, for instance: [FIREFOX_NIGHTLY_57_END](https://hg.mozilla.org/mozilla-central/rev/1ca411f5e97b). Then you have to clobber and bump versions in m-c, just [like the following](https://hg.mozilla.org/mozilla-central/rev/835a92b19e3d).
