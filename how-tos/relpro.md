@@ -49,11 +49,11 @@ python src/tctalker/tctalker.py --conf config.json <action> <task-id>
 ```
 # Actions for Desktop related releases
 
-## 1. email drivers re: release live on test channel
+## 1. email release-signoff re: release live on test channel
 
 ### why
 * cdntest and localtest channels serve releases from the releases dir (mirrors/cdn) or candidates dir depending on the release and channel. They are testing channels used before we serve from the _real_ update channel
-* we should notify drivers once updates are available on the ${branch}-{cdntest,localtest} channel because we don't have taskcluster email notifications yet
+* we should notify release-signoff once updates are available on the ${branch}-{cdntest,localtest} channel because we don't have taskcluster email notifications yet
 
 ### when
 * Desktop Firefox Betas
@@ -61,29 +61,29 @@ python src/tctalker/tctalker.py --conf config.json <action> <task-id>
         * once this task has run successfully, that means we have 1) pushed to releases dir 2) and verified beta-cdntest is serving the release from there
 * Desktop Firefox Release-Candidates
     * context: RCs are m-r releases that are served to beta uses prior to release channel users. RCs use `beta-cdntest` and `release-cdntest` for QA.
-    * `beta-cdntest` serves updates from the candidates/ dir. We should notify drivers once all artifacts are available there. we don't worry about `release-cdntest` because that is not automatic in automation
+    * `beta-cdntest` serves updates from the candidates/ dir. We should notify release-signoff once all artifacts are available there. we don't worry about `release-cdntest` because that is not automatic in automation
         * look in taskgraph graph 1 for task with name `mozilla-release beta final verification`
         * once this task has run successfully, that means 1) the release has finished uploading all artifacts to candidates dir 2) and verified beta-cdntest is serving the release from there
 * Desktop Firefox Releases (dot releases)
-    * `release-localtest` serves updates from the candidates/ dir. We should notify drivers once all artifacts are available there. Again, release-cdntest depends on a human decision (not automatic) in automation so no email required.
+    * `release-localtest` serves updates from the candidates/ dir. We should notify release-signoff once all artifacts are available there. Again, release-cdntest depends on a human decision (not automatic) in automation so no email required.
         * look in taskgraph graph for task with name `firefox mozilla-release push to releases human decision task`.
         * this task should be the only task left that is blocking the graph (aside from the post release human task)
         * all other en-us, l10n, partial, and partner artifact generating tasks should be finished. However, in emergency situations, the partner artifacts should not block sending out the email should the `firefox mozilla-release checksums builder` ran succcessfully.
 * Desktop Firefox ESRs
-    * `esr-localtest` serves updates from the candidates/ dir. We should notify drivers once all artifacts are available there. Again, esr-cdntest depends on a human decision (not automatic) in automation so no email required.
+    * `esr-localtest` serves updates from the candidates/ dir. We should notify release-signoff once all artifacts are available there. Again, esr-cdntest depends on a human decision (not automatic) in automation so no email required.
         * look in taskgraph graph for task with name `firefox mozilla-esr push to releases human decision task`.
         * this task should be the only task left that is blocking the graph (aside from the post release human task)
         * all other en-us, l10n, partial, and partner artifact generating tasks should be finished.
 
 ### how
 * Desktop Firefox Betas
-    * email release-drivers@mozilla.org with subject only email `[desktop] Firefox Beta $version updates are available on the beta-cdntest channel now <EOM>`
+    * email release-signoff@mozilla.org with subject only email `[desktop] Firefox Beta $version updates are available on the beta-cdntest channel now <EOM>`
 * Desktop Firefox Release-Candidates
-    * email release-drivers@mozilla.org with subject only email `[desktop] Firefox RC Release $version updates are available on the beta-cdntest channel now <EOM>`
+    * email release-signoff@mozilla.org with subject only email `[desktop] Firefox RC Release $version updates are available on the beta-cdntest channel now <EOM>`
 * Desktop Firefox Releases (dot releases)
-    * email release-drivers@mozilla.org with subject only email `[desktop] Firefox Release $version updates are available on the release-localtest channel now <EOM>`
+    * email release-signoff@mozilla.org with subject only email `[desktop] Firefox Release $version updates are available on the release-localtest channel now <EOM>`
 * Desktop Firefox ESRs
-    * email release-drivers@mozilla.org with subject only email `[desktop] Firefox ESR $version updates are available on the esr-localtest channel now <EOM>`
+    * email release-signoff@mozilla.org with subject only email `[desktop] Firefox ESR $version updates are available on the esr-localtest channel now <EOM>`
 
 
 ## 2. push to releases dir (mirrors)
@@ -94,13 +94,13 @@ python src/tctalker/tctalker.py --conf config.json <action> <task-id>
 ### when
 * Desktop Firefox Release-Candidate Releases
     * release-cdntest channel serves updates from releases dir so it depends on this step unlike RC beta-cdntest channel
-    * wait for sign off from release-drivers with email like: `[desktop] Please push ${version} to ${channel}` where version is like `46.0 build 3` and channel is like `release-cdntest` or `cdntest` or `mirrors` or `releases`
+    * wait for sign off from release-signoff with email like: `[desktop] Please push ${version} to ${channel}` where version is like `46.0 build 3` and channel is like `release-cdntest` or `cdntest` or `mirrors` or `releases`
         * note: if they do not explicitly ask for `release-cdntest` it is okay to assume if you are confident but please reply with something like `pushed and please use explicit name when requesting next time: release-cdntest channel :)`
 * Desktop Firefox Releases (dot releases)
-    * wait for sign off from release-drivers with email like: `[desktop] Please push ${version} to {cdntest,releases,mirrors}` where version is like: `46.0.1 build 5`, and channel is like: `release-cdntest` or `cdntest` or `mirrors` or `releases`
+    * wait for sign off from release-signoff with email like: `[desktop] Please push ${version} to {cdntest,releases,mirrors}` where version is like: `46.0.1 build 5`, and channel is like: `release-cdntest` or `cdntest` or `mirrors` or `releases`
         * note: if they do not explicitly ask for `release-cdntest` it is okay to assume if you are confident but please reply with something like `pushed and please use explicit name when requesting next time: release-cdntest channel :)`
 * Desktop Firefox ESRs
-    * wait for sign off from release-drivers with email like: `[desktop] Please push ${version} to {cdntest,releases,mirrors}` where version is like: `38.0esr` or `38.2.0esr`, and channel is like: `esr-cdntest` or `cdntest` or `mirrors` or `releases`
+    * wait for sign off from release-signoff with email like: `[desktop] Please push ${version} to {cdntest,releases,mirrors}` where version is like: `38.0esr` or `38.2.0esr`, and channel is like: `esr-cdntest` or `cdntest` or `mirrors` or `releases`
         * note: if they do not explicitly ask for `release-cdntest` it is okay to assume if you are confident but please reply with something like `pushed and please use explicit name when requesting next time: esr-cdntest channel :)`
 
 ### how
@@ -125,7 +125,7 @@ $ python releasetasks_graph_gen.py --release-runner-config=../../../release-runn
 ```
 
 * Desktop Firefox Releases (dot releases)
-    * wait for sign off from release-drivers with email like: `[desktop] Please push ${version} to {cdntest,releases,mirrors}` where version is like: `46.0.1 build 5`, and channel is like: `release-cdntest` or `cdntest` or `mirrors` or `releases`
+    * wait for sign off from release-signoff with email like: `[desktop] Please push ${version} to {cdntest,releases,mirrors}` where version is like: `46.0.1 build 5`, and channel is like: `release-cdntest` or `cdntest` or `mirrors` or `releases`
         * note: if they do not explicitly ask for `release-cdntest` it is okay to assume if you are confident but please reply with something like `pushed and please use explicit name when requesting next time: release-cdntest channel :)`
     * get taskid from task with name `firefox mozilla-release push to releases human decision task` in task graph
     * This task is blocking `[beetmover] firefox mozilla-release push to releases`
@@ -135,7 +135,7 @@ $ python releasetasks_graph_gen.py --release-runner-config=../../../release-runn
 ```
 
 * Desktop Firefox ESRs
-    * wait for sign off from release-drivers with email like: `[desktop] Please push ${version} to {cdntest,releases,mirrors}` where version is like: `38.0esr` or `38.2.0esr`, and channel is like: `esr-cdntest` or `cdntest` or `mirrors` or `releases`
+    * wait for sign off from release-signoff with email like: `[desktop] Please push ${version} to {cdntest,releases,mirrors}` where version is like: `38.0esr` or `38.2.0esr`, and channel is like: `esr-cdntest` or `cdntest` or `mirrors` or `releases`
         * note: if they do not explicitly ask for `esr-cdntest` it is okay to assume if you are confident but please reply with something like `pushed and please use explicit name when requesting next time: esr-cdntest channel :)`
 * ESR releases depend on two taskcluster graphs. pushing to releases happens in graph 2 and will start once graph 2 is submitted.
     * to generate and submit graph 2 of the release:
@@ -222,11 +222,11 @@ Now that the Signoff requirements have been met, the Scheduled Change will be en
 * Desktop Firefox Betas, Desktop Firefox Release-Candidate (beta release prior to release release) and Desktop Firefox dot Releases
     * go to the task graph (there is only one) and find taskId of `publish release human decision task`
     * Resolve the "publish release human decision" task using the command below
-    * Announce to release-drivers that the release is live
+    * Announce to release-signoff that the release is live
 * Desktop Firefox Release and Release-Candidate (RC releases push to release channel)
     * go to the task graph #2 and find taskId of `publish release human decision task`
     * Resolve the "publish release human decision" task using the command below
-    * Announce to release-drivers that the release is live
+    * Announce to release-signoff that the release is live
     * Schedule an update to change the background rate of the rule to 0% the next day.
         * Go to Balrog and "Schedule an Update" for the "firefox-release" rule that changes
           "backgroundRate" to 0 at 9am Pacific the following day. All other fields should remain the same.
@@ -234,7 +234,7 @@ Now that the Signoff requirements have been met, the Scheduled Change will be en
     * depending on timing you may have 1 or 2 graphs. Go to the latest one and
       find taskId of `publish release human decision task`
     * Resolve the "publish release human decision" task using the command below
-    * Announce to release-drivers that the release is live
+    * Announce to release-signoff that the release is live
 ```bash
  tctalker --conf ~/.taskcluster/relpro.json report_completed $TASK_ID
 ```
@@ -259,11 +259,11 @@ Now that the Signoff requirements have been met, the Scheduled Change will be en
 
 # Actions for Mobile related releases
 
-## 1. email drivers re: Fennec builds are available in the candidates directory
+## 1. email release-signoff re: Fennec builds are available in the candidates directory
 
 ### why
 * We don't serve updates to Fennec via Balrog; however, we upload the updates to candidates dir from where they are being used by QE for testing before we upload them to the Google Play Store
-* we should notify drivers once updates are available in candidates directory because we don't have taskcluster email notifications yet
+* we should notify release-signoff once updates are available in candidates directory because we don't have taskcluster email notifications yet
 
 ### when
 * Mobile Firefox Betas, Releases and dot releases
@@ -272,7 +272,7 @@ Now that the Signoff requirements have been met, the Scheduled Change will be en
 
 ### how
 * Mobile Firefox Betas, Releases and dot releases
-    * email release-drivers@mozilla.org with subject only email `[mobile] Fennec $version $build_no builds are available in the candidates directory <EOM>`
+    * email release-signoff@mozilla.org with subject only email `[mobile] Fennec $version $build_no builds are available in the candidates directory <EOM>`
 
 ## 2. push to Google Play Store
 
@@ -281,7 +281,7 @@ Now that the Signoff requirements have been met, the Scheduled Change will be en
 
 ### when
 * Mobile Firefox Betas, Releases and dot releases
-    * wait for sign off from release-drivers with email like: `[mobile] Please push ${version} to the GP`. For betas 2-N we usually send this email right after QE sends the signoff, without an explicit call from RelMan
+    * wait for sign off from release-signoff with email like: `[mobile] Please push ${version} to the GP`. For betas 2-N we usually send this email right after QE sends the signoff, without an explicit call from RelMan
 
 ### how
 * Mobile Firefox Betas and dot releases
