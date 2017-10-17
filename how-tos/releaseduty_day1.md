@@ -26,12 +26,11 @@ Therefore, you ought to be present and pay attention to conversations happening 
 - **_#releng_** (public RelEng channel where many non-releaseduty topics are also discussed)
 - **_#relman_** (optional - about to be retired soon, where RelMan hangs out around usually)
 
-Moreover, you need these mailing list subscriptions:
-- [release-automation-notifications](https://groups.google.com/a/mozilla.com/forum/?hl=en#!forum/release-automation-notifications)
+Moreover, as releaseduty you need to pay attention to certain mailing lists. As a general rule of thumb, all types of sign offs should go to [release signoff mailing list](https://mail.mozilla.org/listinfo/release-signoff),
+all releng automation emails should go to [release-automation-notifications](https://groups.google.com/a/mozilla.com/forum/?hl=en#!forum/release-automation-notifications) whereas all discussion topics should go to [release drivers mailing list](https://mail.mozilla.org/listinfo/release-drivers)
+Along these bread and butter mailing list, you ought to follow/be added to the following ML as well:
 - [release-automation-notifications-dev](https://groups.google.com/a/mozilla.com/forum/#!forum/release-automation-notifications-dev)
 - [releng internal mailing list](release@mozilla.com)
-- [release drivers mailing list](https://mail.mozilla.org/listinfo/release-drivers)
-- [release signoff mailing list](https://mail.mozilla.org/listinfo/release-signoff)
 - [thunderbird release drivers mailing list](https://mail.mozilla.org/listinfo/thunderbird-drivers)
 - [release-automation-notifications-thunderbird](https://mail.mozilla.org/listinfo/release-automation-notifications-thunderbird)
 
