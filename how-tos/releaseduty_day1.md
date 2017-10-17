@@ -29,10 +29,10 @@ Therefore, you ought to be present and pay attention to conversations happening 
 Moreover, as releaseduty you need to *subscribe* to certain mailing lists. As a general rule of thumb, all types of sign offs should go to [release signoff mailing list](https://mail.mozilla.org/listinfo/release-signoff),
 all releng automation emails should go to [release-automation-notifications](https://groups.google.com/a/mozilla.com/forum/?hl=en#!forum/release-automation-notifications) whereas all discussion topics should go to [release drivers mailing list](https://mail.mozilla.org/listinfo/release-drivers)
 Along these bread-and-butter mailing list, you ought to follow/be added to the following ML as well:
-- [release-automation-notifications-dev mailing list](https://groups.google.com/a/mozilla.com/forum/#!forum/release-automation-notifications-dev)
 - [releng internal mailing list](release@mozilla.com)
 - [thunderbird release drivers mailing list](https://mail.mozilla.org/listinfo/thunderbird-drivers)
 - [release-automation-notifications-thunderbird mailing list](https://mail.mozilla.org/listinfo/release-automation-notifications-thunderbird)
+- (optional) [release-automation-notifications-dev mailing list](https://groups.google.com/a/mozilla.com/forum/#!forum/release-automation-notifications-dev)
 
 Meeting-wise, there is a bunch of meetings to you need to take part as releaseduty-squirrel. To view those meetings in your calendar you need to subscribe/be added to the following calendars:
 - [Public - Release Engineering](https://calendar.google.com/calendar/embed?src=mozilla.com_2d32343333353036312d393737%40resource.calendar.google.com) (so that you attend the weekly post-mortem meeting)
