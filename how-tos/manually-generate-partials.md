@@ -8,7 +8,7 @@ Assumptions:
 * the request is for the release channel
 * all locales are being generated, possibly only some of the platforms (which are win32 and win64 in this tutorial)
 
-# How? 
+# How?
 
 ## 1. build/tools changes
 
@@ -19,7 +19,7 @@ export TO_BUILD='6'   # Change this
 export TO_VERSION_UNDERSCORE = ${TO_VERSION//./_} # Example: 53_0
 
 wget
-"https://hg.mozilla.org/releases/mozilla-release/raw-file/FIREFOX_${TO_VERSION_UNDERSCORE}_RELEASE/browser/locales/shipped-locales"                                             
+"https://hg.mozilla.org/releases/mozilla-release/raw-file/FIREFOX_${TO_VERSION_UNDERSCORE}_RELEASE/browser/locales/shipped-locales"
 PERL5LIB=tools/lib/perl perl tools/release/patcher-config-bump.pl \
   -c tools/release/patcher-configs/mozRelease-branch-patcher2.cfg \
   -p firefox -r Firefox -v "$TO_VERSION" -a "$TO_VERSION" -o "$FROM_VERSION" -b "$TO_BUILD" \
@@ -33,7 +33,7 @@ python tools/scripts/build-promotion/create-update-verify-config.py \
   --archive-prefix https://archive.mozilla.org/pub \
   --previous-archive-prefix https://archive.mozilla.org/pub \
   --product firefox --balrog-url https://aus5.mozilla.org --build-number "$TO_BUILD"
-  
+
 python tools/scripts/build-promotion/create-update-verify-config.py \
   --config tools/release/patcher-configs/mozRelease-branch-patcher2.cfg \
   --platform win64 --update-verify-channel release-localtest \
@@ -59,27 +59,10 @@ hg push -r .    # Tags
 ## 2. Update the balrog blobs and generate taskgraph
 
 1. Clone the current production blob and rename it to `*-prod`. Make the production rule to this new blob.
-1. Then, you need to make some changes on the blog you just copied, otherwise the update verify tests will fail.
+1. Then, you need to make some changes on the blob you just copied, otherwise the update verify tests will fail.
   1. Download the release blob make these changes: `["fileUrls"]["release-localtest"]["partials"].append("Firefox-${FROM_VERSION}-build${FROM_BUILD}": "http://archive.mozilla.org/pub/firefox/candidates/${TO_VERSION}-candidates/build${TO_BUILD}/update/%OS_FTP%/%LOCALE%/firefox-${FROM_VERSION}-${TO_VERSIONs}.partial.mar")`
   1. Upload the new blob and make the release-localtest rule point to this new blob.
-1. 
-```sh 
-ssh buildbot-master85.bb.releng.scl3.mozilla.com
-sudo su - ctlbld
-mkdir bug-xxxxxx && cd bug-xxxxxx
-curl --location https://bugzilla.mozilla.org/attachment.cgi?id=8818876 > partials.tar.gz
-tar xvf partials.tar.gz
-cd partials
-cd partials-47.0.2-50.1.0/
-
-# Modify runme.py to point to $TO_VERSION
-# Fill the creds in config.yml
-source /builds/releaserunner/bin/activate
-python runme.py
-
-# If the graph is printed out, uncomment the last line of runme.py
-python runme.py
-```
+1. Follow instructions at https://github.com/JohanLorenzo/win32-to-win64-partials/blob/master/README.md
 
 ## 3. Update balrog blobs (one more time) and bouncers
 
