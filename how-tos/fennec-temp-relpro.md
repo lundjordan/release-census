@@ -17,7 +17,7 @@ Ship-it should be hooked up as normal, using release-runner3.
 
 There will be a "Relpro" action task that shows up in Treeherder. This will be part of the on-push graph, but it will generate a new Promotion graph. The promotion graph's taskGroupId will be the same as the action task's taskId. This graph will contain all the promotion tasks that are needed to build and push Fennec to candidates.
 
-## Steps after QA signed off
+## Publish Release
 
 First, we need to kick off the publish action task. Then we need to resolve the push-apk-breakpoint task in the publish graph.
 
