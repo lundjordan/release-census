@@ -1,6 +1,6 @@
 # maple
 
-Last updated 2017-10-25
+Last updated 2017-11-10
 
 Currently, maple is our taskcluster relpro migration area.
 
@@ -35,42 +35,36 @@ We're going to try to use beetmover scriptworker + balrog scriptworker instead o
 
 This may be more work, but avoids some hacks and is where we want to end up.
 
-### encrypted env vars
-
-- we'll need to make sure the appropriate docker-image tasks run in the promote action. I added a `do_not_optimize` property so we can avoid optimizing the docker-image task out of the graph.
-- rail says, "We would need to know the corresponding task IDs - you have to use them to make encrypted env vars work." We could make this work by either generating all the slugids in advance, with the encrypted env vars, and passing that in, or by exposing the private key in taskcluster secrets or something like that. Neither is a great option.
-
-This may or may not be less work, and we'll be further away from our end goal when we're done.
-
 ---
 # how-to
-## Trigger relpro: promote fennec
+## Trigger relpro: promote
 
-Launch a new Fennec promotion graph using [ship-it dev](https://ship-it-dev.allizom.org/).
+Launch a new promotion graph using [ship-it dev](https://ship-it-dev.allizom.org/).
 
 1. Click "Ship a new release"
-1. Fennec
-1. The version will be displayed [here](https://hg.mozilla.org/projects/maple/file/tip/browser/config/version_display.txt) -- `58.0a1` as of this writing.
+1. Fennec or Firefox
+1. The version will be displayed [here](https://hg.mozilla.org/projects/maple/file/tip/browser/config/version_display.txt) -- `58.0b6` as of this writing.
 1. The branch is `projects/maple`
 1. Enter the maple revision... probably the latest from [here](https://hg.mozilla.org/projects/maple/summary)
-1. Enter an empty dict `{}` as the l10n changesets -- we'll get the real information from in-tree.
-1. Click "Gimme a fennec"
+1. Click "Gimme a <product>"
 1. Click "View releases" -> "Submitted"
 1. Click "Ready" and "Do eet"
 1. The new relpro action should be on [treeherder](https://treeherder.mozilla.org/#/jobs?repo=maple) as a new `Relpro` symbol; click it
 1. the taskId is on the lower left. Clicking on it will bring you to the log
-1. pasting the taskid into the url `https://tools.taskcluster.net/groups/TASKID` will bring you to the `promote_fennec` graph
+1. pasting the taskid into the url `https://tools.taskcluster.net/groups/TASKID` will bring you to the promotion graph
 
-## Trigger relpro: publish fennec
+## Trigger relpro: publish
 
 ```bash
 ssh buildbot-master83.bb.releng.scl3.mozilla.com
 sudo su - cltbld
 cd /builds/releaserunner3/
 source bin/activate
-# set the action task id to the taskId of the `promote_fennec` relpro action
+# set the action task id to the taskId of the promotion relpro action
 ACTION_TASK_ID=M1QFL1R7RWCTReFLsRWmGw
-python tools/buildfarm/release/trigger_action.py --action-task-id $ACTION_TASK_ID --release-runner-config /builds/releaserunner3/release-runner.yml --action-flavor publish_fennec
+# This should be `publish_fennec` or `maple_desktop_promotion`
+ACTION_FLAVOR=publish_fennec
+python tools/buildfarm/release/trigger_action.py --action-task-id $ACTION_TASK_ID --release-runner-config /builds/releaserunner3/release-runner.yml --action-flavor $ACTION_FLAVOR
 ```
 
 The action should show up on treeherder; its taskId is the graph's group id as above.
@@ -78,71 +72,30 @@ The action should show up on treeherder; its taskId is the graph's group id as a
 ---
 ## diff taskgraphs
 
-- save a maple parameters.yml file as `maple-ci.yml`
-- copy it, edit the `target_tasks_method` to `candidates_fennec` and save it as `promote-fennec.yml`
-- copy it, edit the `target_tasks_method` to `publish_fennec` and save it as `publish-fennec.yml`
+[`taskgraph-gen.py`](https://hg.mozilla.org/build/braindump/file/tip/taskcluster/taskgraph-diff/taskgraph-gen.py) lets you generate a bunch of graphs from a given revision. Once you generate graphs from 2 revisions, [`taskgraph-diff.py`](https://hg.mozilla.org/build/braindump/file/tip/taskcluster/taskgraph-diff/taskgraph-diff.py) lets you diff the two sets of graphs. This means you can diff the graphs generated from tip of central against the tip of maple, or from the tip of maple against maple + your patch, or whatever.
 
-Create different task-graph json files to diff against. For example, on maple,
-
-```bash
-./mach taskgraph target-graph -p maple-ci.yml --json > ../maple-clean.json
-./mach taskgraph target-graph -p promote-fennec.yml --json > ../maple-promote-fennec-clean.json
-./mach taskgraph target-graph -p publish-fennec.yml --json > ../maple-publish-fennec-clean.json
-```
-
-Then update to your bookmark, and do the same (but to dirty files). Then you can verify that you haven't added any new tasks where they shouldn't go, but have added the task where it should go.
-
-Before we merge to m-c, we'll need to make sure we haven't broken m-c ci, m-c nightly, m-b ci, m-b `candidates_fennec`, try, etc. So we may want to keep a library of parameters files lying around, and maybe a shell script, so we can perform these checks.
-
----
-## debug release promotion action
-
-We can use `./mach taskgraph test-action-callback` to debug.
-
-I used
+e.g.
 
 ```
-./mach taskgraph test-action-callback --task-group-id LR-xH1ViTTi2jrI-N1Mf2A --input /src/gecko/params/promote_fennec.yml -p /src/gecko/params/maple-fennec-candidates.yml release_promotion_action > ../promote.json
+# First create virtualenv with dictdiffer and activate it
+# Then run:
+cd mozilla-unified
+hg up -r central
+../taskgraph-diff/taskgraph-gen.py --overwrite central
+hg up -r maple
+../taskgraph-diff/taskgraph-gen.py --overwrite maple
+../taskgraph-diff/taskgraph-diff.py central maple
+# diffs are in ../taskgraph-diff/json/maple/*.diff
 ```
 
-`promote_fennec.yml`:
+In the above example, I've softlinked my `braindump/taskcluster/taskgraph-diff` directory to be a sibling of `mozilla-unified`.
 
-(This is also the input I use in the action in treeherder)
+Caveats:
 
-```yaml
-build_number: 1
-release_promotion_flavor: promote_fennec
-```
+- the diffs are kind of interesting to read. They're [dictdiffer](https://dictdiffer.readthedocs.io/en/latest) diffs [1]. Once you get the hang of them they work.
+- the params are checked in along with the scripts. These will break over time as people add and remove required parameters. Also, if we rename our `target_tasks_methods` we'll see breakage.
 
-`maple-fennec-candidates.yml`:
-```yaml
-base_repository: https://hg.mozilla.org/mozilla-central
-build_date: 1507178755
-do_not_optimize: []
-existing_tasks: {}
-filters:
-- check_servo
-- target_tasks_method
-head_ref: a76bd64bcdd3b360918936a3cfbc5e3e604b1d1c
-head_repository: https://hg.mozilla.org/projects/maple
-head_rev: a76bd64bcdd3b360918936a3cfbc5e3e604b1d1c
-include_nightly: true
-level: '3'
-message: ' '
-moz_build_date: '20171005044555'
-optimize_target_tasks: true
-owner: asasaki@mozilla.com
-project: maple
-pushdate: 1507178755
-pushlog_id: '13'
-release_history: {}
-target_tasks_method: candidates_fennec
-try_mode: null
-try_options: null
-try_task_config: null
-```
-
-I'm not 100% sure if it's important to use a promotion parameters file or an on-push one.
+We have a [`params_pre_buildnum`](https://hg.mozilla.org/build/braindump/file/tip/taskcluster/taskgraph-diff/params-pre-buildnum) directory we can use if we're generating task graphs from a pre-[bug 1415391](https://bugzilla.mozilla.org/show_bug.cgi?id=1415391) revision.
 
 ---
 # hg / git - how Aki's muddling through
@@ -169,4 +122,4 @@ Bookmarks are good for a single branch. I tend to clump all my unlanded patches 
 
 Random thoughts:
 - Should we switch our [release promotion action properties](https://hg.mozilla.org/projects/maple/file/tip/taskcluster/taskgraph/actions/release_promotion.py#l67) to dashed-words instead of `underscore_words`?
-- Should we rename the `candidates_fennec` `target_tasks_method` to `promote_fennec`? We're rebuilding, so it's not really strict promotion, but it matches `promote_firefox` and the future `promote_devedition`...
+- Naming: promote/push/ship? prmote/publish/ship? I'm thinking `ACTION_PRODUCT`, so `promote_fennec` or `push_firefox` or `ship_devedition`
