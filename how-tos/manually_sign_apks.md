@@ -7,6 +7,7 @@ Currently, 2 products are concerned:
 
 ## Create signatures
 1. `ssh signing4.srv.releng.scl3.mozilla.com`
+1. Change to the `cltsign` user: `sudo -i` then `su - cltsign` # TODO: `sudo -u cltsign` should be enabled.
 1. Download unsigned APK(s).
 1. `keystore='/builds/signing/rel-key-signing-server/secrets/focus-jar'` for Focus/Klar. `keystore='/builds/signing/rel-key-signing-server/secrets/rocket-jar'` for Rocket.
 1. `alias='focus'` for Focus/Klar. `alias='rocket'` for Rocket.
@@ -18,7 +19,7 @@ No -tsa or -tsacert is provided and this jar is not timestamped. Without a times
 1. `mv unsigned.apk signed.apk`
 1. Verify signatures: `jarsigner -verify -verbose -keystore "$keystore" signed.apk "$alias"`. Repeat for the Klar APK.
 1. If your product has several APKs, repeat the 3 previous steps.
-1. Fetch signed APK(s) on your local machine.
+1. Fetch signed APK(s) on your local machine. You will need to copy the files to your own user account in order to `scp` them.
 
 ### Can't sign APKs
 
@@ -48,3 +49,7 @@ Google Play refuses non-optimized APKs. The signature changes the structure of t
 1. `zipalign -v 4 signed.apk signed-aligned.apk`. Zipalign may not be in your PATH. This depends on on your distribution. Please check folder like `/usr/local/bin` or `/opt/android-sdk/build-tools/XX.Y.Z`.
 1. Verify optimization. `zipalign -c -v 4 signed-aligned.apk`.
 1. If your product has several APKs, repeat the 2 previous steps.
+
+## Attach the signed and aligned APKs to the bug
+
+1. Use the 'attach file' feature in bugzilla.
