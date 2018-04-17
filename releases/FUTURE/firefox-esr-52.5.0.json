@@ -1,5 +1,0 @@
-{
-    "issues": [
-        "POTENTIAL ISSUE: [Bug 1406939](https://bugzil.la/1406939) - for 52.4.1 we reverted update verify configs for linux/windows. We need to double check we are testing updates from 52.4.1 for those platforms to 52.5.0"
-    ]
-}

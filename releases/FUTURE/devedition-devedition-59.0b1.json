@@ -1,5 +1,0 @@
-{
-    "issues": [
-        "POTENTIAL ISSUE: Please validate beta repo has appropriate [version_display.txt](https://hg.mozilla.org/releases/mozilla-beta/file/default/browser/config/version_display.txt). Should be 59.0b1"
-    ]
-}

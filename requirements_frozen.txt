@@ -1,9 +1,0 @@
-appdirs==1.4.3
-gitdb2==2.0.2
-GitPython==2.1.5
-Jinja2==2.9.6
-MarkupSafe==1.0
-packaging==16.8
-pyparsing==2.2.0
-six==1.10.0
-smmap2==2.0.3
